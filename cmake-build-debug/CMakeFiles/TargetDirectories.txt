@@ -1,0 +1,3 @@
+C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/cmake-build-debug/CMakeFiles/DA2324_PRJ1_G29.dir
+C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/cmake-build-debug/CMakeFiles/rebuild_cache.dir
