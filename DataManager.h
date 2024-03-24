@@ -19,12 +19,11 @@ class DataManager {
         void readPipes();
         void readReservoirs();
         void readStations();
-
+        void normalizePopulation(std::string &population);
     private:
         std::unordered_map<std::string, City> cities;
         std::unordered_map<std::string, Reservoir> reservoirs;
         std::unordered_map<std::string, Station> stations;
-        std::unordered_map<std::string, std::string, Pipe> pipes;
         Graph<std::string> graph;
 };
 

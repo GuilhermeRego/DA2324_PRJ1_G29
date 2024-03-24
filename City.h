@@ -18,8 +18,13 @@ class City {
         int population;
 
     public:
-        City(std::string id, std::string code, std::string name, double demand, int population) :
-            id(id), code(code), name(name), demand(demand), population(population) {}
+        City(std::string name, std::string id, std::string code, double demand, int population) {
+            this->name = name;
+            this->id = id;
+            this->code = code;
+            this->demand = demand;
+            this->population = population;
+        }
 
         std::string getName() const { return name; }
 

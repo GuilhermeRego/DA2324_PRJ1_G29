@@ -11,8 +11,6 @@ add_executable(DA2324_PRJ1_G29
         Station.h
         City.cpp
         City.h
-        Pipe.cpp
-        Pipe.h
         main.cpp
         DataManager.cpp
         DataManager.h
