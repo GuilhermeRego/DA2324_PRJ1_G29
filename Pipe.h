@@ -5,25 +5,37 @@
 #ifndef DA2324_PRJ1_G29_PIPE_H
 #define DA2324_PRJ1_G29_PIPE_H
 
-#include "Point.h"
+#include "Graph.h"
 
 class Pipe {
     private:
-        Point* source;
-        Point* destination;
+        std::string codeA;
+        std::string codeB;
         int capacity;
         bool direction;
     public:
-        Pipe(Point* source, Point* destination, int capacity, bool direction) :
-            source(source), destination(destination), capacity(capacity), direction(direction) {}
-        Point getSource() const { return *source; }
-        Point getDestination() const { return *destination; }
-        int getCapacity() const { return capacity; }
-        bool getDirection() const { return direction; }
-        void setSource(Point source) { this->source = &source; }
-        void setDestination(Point destination) { this->destination = &destination; }
-        void setCapacity(int capacity) { this->capacity = capacity; }
-        void setDirection(bool direction) { this->direction = direction; }
+        Pipe(std::string codeA, std::string codeB, int capacity, bool direction) {
+            this->codeA = codeA;
+            this->codeB = codeB;
+            this->capacity = capacity;
+            this->direction = direction;
+        }
+
+        std::string getCodeA() {
+            return codeA;
+        }
+
+        std::string getCodeB() {
+            return codeB;
+        }
+
+        int getCapacity() {
+            return capacity;
+        }
+
+        bool getDirection() {
+            return direction;
+        }
 };
 
 #endif //DA2324_PRJ1_G29_PIPE_H

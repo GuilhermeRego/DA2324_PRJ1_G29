@@ -5,13 +5,27 @@
 #ifndef DA2324_PRJ1_G29_DATAMANAGER_H
 #define DA2324_PRJ1_G29_DATAMANAGER_H
 
+#include <unordered_map>
+#include <string>
+#include "City.h"
+#include "Reservoir.h"
+#include "Station.h"
+#include "Pipe.h"
 
 class DataManager {
     public:
+        DataManager();
         void readCities();
         void readPipes();
         void readReservoirs();
         void readStations();
+
+    private:
+        std::unordered_map<std::string, City> cities;
+        std::unordered_map<std::string, Reservoir> reservoirs;
+        std::unordered_map<std::string, Station> stations;
+        std::unordered_map<std::string, std::string, Pipe> pipes;
+        Graph<std::string> graph;
 };
 
 

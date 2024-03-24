@@ -5,25 +5,25 @@
 #ifndef DA2324_PRJ1_G29_CITY_H
 #define DA2324_PRJ1_G29_CITY_H
 
-#include "Point.h"
+#include "Graph.h"
 #include <string>
 
-class City : public Point {
+class City {
 
     private:
         std::string name;
-        int id;
+        std::string id;
         std::string code;
         double demand;
         int population;
 
     public:
-        City(int id, std::string code, std::string name, double demand, int population) :
+        City(std::string id, std::string code, std::string name, double demand, int population) :
             id(id), code(code), name(name), demand(demand), population(population) {}
 
         std::string getName() const { return name; }
 
-        int getId() const { return id; }
+        std::string getId() const { return id; }
 
         std::string getCode() const { return code; }
 

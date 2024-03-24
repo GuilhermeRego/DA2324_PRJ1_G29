@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(.)
 
 add_executable(DA2324_PRJ1_G29
-        Point.cpp
         Reservoir.cpp
         Station.cpp
         Station.h

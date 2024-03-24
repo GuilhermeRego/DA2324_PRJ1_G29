@@ -17,13 +17,20 @@ class Edge;
 
 /************************* Vertex  **************************/
 
+enum VertexType {
+    city,
+    reservoir,
+    station
+};
+
 template <class T>
 class Vertex {
 public:
-    Vertex(T in);
+    Vertex(T info);
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 
     T getInfo() const;
+    VertexType getType() const;
     std::vector<Edge<T> *> getAdj() const;
     bool isVisited() const;
     bool isProcessing() const;
@@ -43,8 +50,10 @@ public:
     void removeOutgoingEdges();
 
 protected:
-    T info;                // info node
     std::vector<Edge<T> *> adj;  // outgoing edges
+    T info;
+    VertexType type;
+
 
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
@@ -65,6 +74,7 @@ protected:
 template <class T>
 class Edge {
 public:
+
     Edge(Vertex<T> *orig, Vertex<T> *dest, double w);
 
     Vertex<T> * getDest() const;
@@ -73,10 +83,13 @@ public:
     Vertex<T> * getOrig() const;
     Edge<T> *getReverse() const;
     double getFlow() const;
+    bool getDirection() const;
 
     void setSelected(bool selected);
     void setReverse(Edge<T> *reverse);
     void setFlow(double flow);
+    void setDirection(bool direction);
+
 protected:
     Vertex<T> * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -89,6 +102,8 @@ protected:
     Edge<T> *reverse = nullptr;
 
     double flow; // for flow-related problems
+
+    bool direction; // true if it is unidirectional and false if it is bidirectional
 };
 
 /********************** Graph  ****************************/
@@ -146,8 +161,18 @@ void deleteMatrix(double **m, int n);
 
 /************************* Vertex  **************************/
 
-template <class T>
-Vertex<T>::Vertex(T in): info(in) {}
+template<class T>
+Vertex<T>::Vertex(T info) {
+    this->info = info;
+    this->type = type;
+
+}
+
+template<class T>
+VertexType Vertex<T>::getType() const {
+    return this->type;
+}
+
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).

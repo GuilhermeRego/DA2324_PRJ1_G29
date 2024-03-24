@@ -5,17 +5,17 @@
 #ifndef DA2324_PRJ1_G29_STATION_H
 #define DA2324_PRJ1_G29_STATION_H
 
-#include "Point.h"
+#include "Graph.h"
 #include <string>
 
-class Station : public Point {
+class Station {
     private:
-        int id;
+        std::string id;
         std::string code;
     public:
-        Station(int id, std::string code) :
+        Station(std::string id, std::string code) :
             id(id), code(code) {}
-        int getId() const { return id; }
+        std::string getId() const { return id; }
         std::string getCode() const { return code; }
         void setId(int id) { this->id = id; }
         void setCode(std::string code) { this->code = code; }
