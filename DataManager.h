@@ -1,3 +1,4 @@
+
 //
 // Created by guire on 07/03/2024.
 //
@@ -11,20 +12,27 @@
 #include "Reservoir.h"
 #include "Station.h"
 
+using namespace std;
 
 class DataManager {
-    public:
-        DataManager();
-        void readCities();
-        void readPipes();
-        void readReservoirs();
-        void readStations();
-        void normalizePopulation(std::string &population);
-    public:
-        std::unordered_map<std::string, City> cities;
-        std::unordered_map<std::string, Reservoir> reservoirs;
-        std::unordered_map<std::string, Station> stations;
-        Graph<std::string> graph;
+public:
+    DataManager();
+    void readCities();
+    void readPipes();
+    void readReservoirs();
+    void readStations();
+
+    static void normalizePopulation(string &population);
+
+    unordered_map<string, City> getCities() const { return cities; }
+    unordered_map<string, Reservoir> getReservoirs() const { return reservoirs; }
+    unordered_map<string, Station> getStations() const { return stations; }
+    Graph<string> getGraph() const { return graph; }
+private:
+    unordered_map<string, City> cities;
+    unordered_map<string, Reservoir> reservoirs;
+    unordered_map<string, Station> stations;
+    Graph<string> graph;
 };
 
 

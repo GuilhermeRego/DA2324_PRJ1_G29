@@ -1,15 +1,212 @@
 //
-// Created by diogo on 24/03/2024.
+// Created by guire on 24/03/2024.
 //
 
 #include "Menu.h"
+#include "DataManager.h"
+#include <string>
+#include <iostream>
+#include <fstream>
 
-Menu::Menu(DataManager& dataManager) : dataManager(dataManager) {}
+using namespace std;
+
+string input = "0";
+
+bool Menu::isDigit(const string& s) {
+    for (char c : s) {
+        if (!isdigit(c)) return false;
+    }
+    return true;
+}
+
+Menu::Menu() {
+    init();
+}
+
+void Menu::init() {
+    mainMenu();
+}
+
+void Menu::mainMenu() {
+    cout << "\n\n-------------------------------------------------------------------------------------------------------\n"
+            "Welcome to the Water Supply Management!\n"
+            "Please choose one of the following options:\n"
+            "1: Statistics;\n"
+            "2: Determine maximum water reach for each city using Edmonds Karp;\n"
+            "9: Exit;\n"
+            "-------------------------------------------------------------------------------------------------------\n";
+    cin >> input;
+    if (!isDigit(input)) {
+        cout << "Invalid input, try again\n";
+        mainMenu();
+        return;
+    }
+    switch (stoi(input)) {
+        case 1:
+            statistics();
+            break;
+        case 2:
+            maxWaterReach();
+            break;
+        case 9:
+            cout << "Goodbye!\n";
+            break;
+        default:
+            cout << "Invalid input, try again\n";
+            mainMenu();
+            break;
+    }
+}
+
+void Menu::statistics() {
+    bool invalidInput = false;
+    cout << "Madeira or Portugal?\n";
+    cout << "1: Madeira\n";
+    cout << "2: Portugal\n";
+    cin >> input;
+    if (!isDigit(input)) {
+        cout << "Invalid input, try again\n";
+        statistics();
+        return;
+    }
+
+    switch(stoi(input)) {
+        case 1:
+            cout << "Available statistics for Madeira:\n";
+            cout << "1 - Number of cities, reservoirs and stations\n"
+                    "2 - Total population\n"
+                    "3 - Total demand\n"
+                    "4 - Average maximum delivery\n"
+                    "5 - Order cities by population\n"
+                    "6 - Order cities by demand\n"
+                    "7 - Order reservoirs by maximum delivery\n"
+                    "8 - Show connections between service points\n"
+                    "9 - Return to main menu\n";
+            cin >> input;
+            if (!isDigit(input)) {
+                cout << "Invalid input, try again\n";
+                statistics();
+                return;
+            }
+            switch (stoi(input)) {
+                case 1: {
+                    cout << "Number of cities: " << dataManager.getCities().size() << endl;
+                    cout << "Number of reservoirs: " << dataManager.getReservoirs().size() << endl;
+                    cout << "Number of stations: " << dataManager.getStations().size() << endl;
+                    break;
+                }
+                case 2: {
+                    int totalPopulation = 0;
+                    for (auto &city: dataManager.getCities()) {
+                        totalPopulation += city.second.getPopulation();
+                    }
+                    cout << "Total population: " << totalPopulation << endl;
+                    break;
+                }
+                case 3: {
+                    double totalDemand = 0;
+                    for (auto &city: dataManager.getCities()) {
+                        totalDemand += city.second.getDemand();
+                    }
+                    cout << "Total demand: " << totalDemand << endl;
+                    break;
+                }
+                case 4: {
+                    double totalMaxDelivery = 0;
+                    for (auto &reservoir: dataManager.getReservoirs()) {
+                        totalMaxDelivery += reservoir.second.getMaxDelivery();
+                    }
+                    cout << "Average maximum delivery: " << totalMaxDelivery / (double) dataManager.getReservoirs().size()
+                         << endl;
+                    break;
+                }
+                case 5: {
+                    cout << "Cities ordered by population:\n";
+                    vector<pair<string, City>> cities;
+                    for (auto &city: dataManager.getCities()) {
+                        cities.emplace_back(city);
+                    }
+                    sort(cities.begin(), cities.end(), [](const pair<string, City> &a, const pair<string, City> &b) {
+                        return a.second.getPopulation() > b.second.getPopulation();
+                    });
+                    int i = 1;
+                    for (auto &city: cities) {
+                        cout << i << ": " << city.second.getName() << " - " << city.second.getPopulation() << endl;
+                        i++;
+                    }
+                    break;
+                }
+                case 6: {
+                    cout << "Cities ordered by demand:\n";
+                    vector<pair<string, City>> cities;
+                    for (auto &city: dataManager.getCities()) {
+                        cities.emplace_back(city);
+                    }
+                    sort(cities.begin(), cities.end(), [](const pair<string, City> &a, const pair<string, City> &b) {
+                        return a.second.getDemand() > b.second.getDemand();
+                    });
+                    int i = 1;
+                    for (auto &city: cities) {
+                        cout << i << ": " << city.second.getName() << " - " << city.second.getDemand() << endl;
+                        i++;
+                    }
+                    break;
+                }
+                case 7: {
+                    cout << "Reservoirs ordered by maximum delivery:\n";
+                    vector<pair<string, Reservoir>> reservoirs;
+                    for (auto &reservoir: dataManager.getReservoirs()) {
+                        reservoirs.emplace_back(reservoir);
+                    }
+                    sort(reservoirs.begin(), reservoirs.end(), [](const pair<string, Reservoir> &a, const pair<string, Reservoir> &b) {
+                        return a.second.getMaxDelivery() > b.second.getMaxDelivery();
+                    });
+                    int i = 1;
+                    for (auto &reservoir: reservoirs) {
+                        cout << i << ": " << reservoir.second.getName() << " - " << reservoir.second.getMaxDelivery() << endl;
+                        i++;
+                    }
+                    break;
+                }
+                case 8: {
+                    cout << "Connections between service points (In the format \"source -> dest\"):\n";
+                    for (auto &vertex : dataManager.getGraph().getVertexSet()) {
+                        if (!vertex->getAdj().empty()) {
+                            cout << vertex->getInfo() << " -> ";
+                            for (auto &edge: vertex->getAdj()) {
+                                cout << edge->getDest()->getInfo() << " ";
+                            }
+                            cout << endl;
+                        }
+                        else {
+                            cout << vertex->getInfo() << " -> No connections\n";
+                        }
+                    }
+                    break;
+                }
+                case 9:
+                    break;
+                default:
+                    cout << "Invalid input, try again\n";
+                    break;
+            }
+            mainMenu();
+            break;
+        case 2:
+            cout << "Portugal\n";
+            mainMenu();
+            break;
+        default:
+            cout << "Invalid input, try again\n";
+            statistics();
+            break;
+    }
+}
 
 
 // Function to test the given vertex 'w' and visit it if conditions are met
 template <class T>
-void Menu::testAndVisit(std::queue<Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double residual) {
+void testAndVisit(std::queue<Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double residual) {
     // Check if the vertex 'w' is not visited and there is residual capacity
     if (!w->isVisited() && residual > 0) {
         // Mark 'w' as visited, set the path through which it was reached, and enqueue it
@@ -21,7 +218,7 @@ void Menu::testAndVisit(std::queue<Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, dou
 
 // Function to find an augmenting path using Breadth-First Search
 template <class T>
-bool Menu::findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
+bool findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
     // Mark all vertices as not visited
     for (auto v : g->getVertexSet()) {
         v->setVisited(false);
@@ -49,7 +246,7 @@ bool Menu::findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
 
 // Function to find the minimum residual capacity along the augmenting path
 template <class T>
-double Menu::findMinResidualAlongPath(Vertex<T> *s, Vertex<T> *t) {
+double findMinResidualAlongPath(Vertex<T> *s, Vertex<T> *t) {
     double f = INF;
     // Traverse the augmenting path to find the minimum residual capacity
     for (auto v = t; v != s;) {
@@ -68,7 +265,7 @@ double Menu::findMinResidualAlongPath(Vertex<T> *s, Vertex<T> *t) {
 
 // Function to augment flow along the augmenting path with the given flow value
 template <class T>
-void Menu::augmentFlowAlongPath(Vertex<T> *s, Vertex<T> *t, double f) {
+void augmentFlowAlongPath(Vertex<T> *s, Vertex<T> *t, double f) {
     // Traverse the augmenting path and update the flow values accordingly
     for (auto v = t; v != s;) {
         auto e = v->getPath();
@@ -85,7 +282,7 @@ void Menu::augmentFlowAlongPath(Vertex<T> *s, Vertex<T> *t, double f) {
 
 // Main function implementing the Edmonds-Karp algorithm
 template <class T>
-void Menu::edmondsKarp(Graph<T> *g, std::string source, std::string target) {
+void edmondsKarp(Graph<T> *g, string source, string target) {
     // Find source and target vertices in the graph
     Vertex<T> *s = g->findVertex(source);
     Vertex<T> *t = g->findVertex(target);
@@ -105,23 +302,79 @@ void Menu::edmondsKarp(Graph<T> *g, std::string source, std::string target) {
     }
 }
 
-void Menu::displayMainMenu() {
-    int choice;
-    do {
-        std::cout << "=== Main Menu ===" << std::endl;
-        std::cout << "1. Calculate maximum flow" << std::endl;
-        std::cout << "2. Exit" << std::endl;
-        std::cout << "Enter your choice: ";
-        std::cin >> choice;
-        switch(choice) {
-            case 1:
-                break;
-            case 2:
-                std::cout << "Exiting..." << std::endl;
-                break;
-            default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
+void Menu::maxWaterReach() {
+    while (true) {
+        // Display reservoir options for the user to choose as the source
+        cout << "Select the water reservoir as the source:" << endl;
+        int i = 1;
+        unordered_map<int, string> reservoirChoices; // Map numerical choices to reservoir names
+        for (auto &reservoir : dataManager.getReservoirs()) {
+            cout << i << ": " << reservoir.second.getName() << endl;
+            reservoirChoices[i] = reservoir.second.getCode(); // Store numerical choice and corresponding reservoir name
+            i++;
         }
-    } while(choice != 2);
-}
+        int reservoirChoice;
+        cin >> reservoirChoice;
+        // Validate the user's input
+        if (reservoirChoice < 1 || reservoirChoice > reservoirChoices.size()) {
+            cout << "Invalid reservoir choice. Please try again." << endl;
+            continue; // Restart the loop to prompt the user again
+        }
+        // Set the selected reservoir as the source
+        string source = reservoirChoices[reservoirChoice]; // Get the reservoir name based on user's numerical choice
 
+        // Display city options for the user to choose as the sink
+        cout << "Select the city as the sink:" << endl;
+        i = 1;
+        unordered_map<int, string> cityChoices; // Map numerical choices to city names
+        for (auto &city : dataManager.getCities()) {
+            cout << i << ": " << city.second.getName() << endl;
+            cityChoices[i] = city.second.getCode(); // Store numerical choice and corresponding city name
+            i++;
+        }
+        int cityChoice;
+        cin >> cityChoice;
+        // Validate the user's input
+        if (cityChoice < 1 || cityChoice > cityChoices.size()) {
+            cout << "Invalid city choice. Please try again." << endl;
+            continue; // Restart the loop to prompt the user again
+        }
+        // Set the selected city as the sink
+        string sink = cityChoices[cityChoice]; // Get the city name based on user's numerical choice
+
+        // Create a copy of the graph to avoid modifying the original graph
+        Graph<std::string> graphCopy = dataManager.getGraph();
+
+        // Call the edmondsKarp function to calculate the maximum flow
+        edmondsKarp(&graphCopy, source, sink);
+
+        // Retrieve the maximum flow value from the sink city's vertex
+        Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
+        double maxFlow = 0;
+        for (auto& incomingEdge : sinkVertex->getIncoming()) {
+            maxFlow += incomingEdge->getFlow();
+        }
+
+        // Display the maximum flow in the console
+        cout << "Maximum flow from reservoir to city: " << maxFlow << endl;
+
+        // Write the maximum flow to a file
+        ofstream outputFile("max_flow_reservoir_to_city.txt");
+        if (outputFile.is_open()) {
+            outputFile << "Maximum flow from reservoir to city: " << maxFlow << endl;
+            outputFile.close();
+            cout << "Results written to max_flow_reservoir_to_city.txt" << endl;
+        } else {
+            cout << "Unable to open file for writing" << endl;
+        }
+
+        // Ask the user if they want to perform another calculation
+        cout << "\n"<< "Do you want to calculate maximum flow again? (y/n): ";
+        char choice;
+        cin >> choice;
+        if (choice != 'y' && choice != 'Y') {
+             break;
+        }
+        cout << "\n";
+    }
+}

@@ -6,8 +6,6 @@
 #include "Menu.h"
 
 int main() {
-    DataManager dataManager;
-    Menu Menu(dataManager);
-    Menu.displayMainMenu();
+    Menu menu;
     return 0;
 }
