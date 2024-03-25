@@ -15,4 +15,6 @@ add_executable(DA2324_PRJ1_G29
         DataManager.cpp
         DataManager.h
         Graph.h
+        Menu.cpp
+        Menu.h
 )

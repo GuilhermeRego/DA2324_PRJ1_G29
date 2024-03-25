@@ -3,8 +3,11 @@
 //
 
 #include "DataManager.h"
+#include "Menu.h"
 
 int main() {
     DataManager dataManager;
+    Menu Menu(dataManager);
+    Menu.displayMainMenu();
     return 0;
 }

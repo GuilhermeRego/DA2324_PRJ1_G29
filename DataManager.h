@@ -10,7 +10,7 @@
 #include "City.h"
 #include "Reservoir.h"
 #include "Station.h"
-#include "Pipe.h"
+
 
 class DataManager {
     public:
@@ -20,7 +20,7 @@ class DataManager {
         void readReservoirs();
         void readStations();
         void normalizePopulation(std::string &population);
-    private:
+    public:
         std::unordered_map<std::string, City> cities;
         std::unordered_map<std::string, Reservoir> reservoirs;
         std::unordered_map<std::string, Station> stations;
