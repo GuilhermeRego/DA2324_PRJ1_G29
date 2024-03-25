@@ -18,9 +18,9 @@ class Edge;
 /************************* Vertex  **************************/
 
 enum VertexType {
-    city,
-    reservoir,
-    station
+    CITY,
+    RESERVOIR,
+    STATION
 };
 
 template <class T>

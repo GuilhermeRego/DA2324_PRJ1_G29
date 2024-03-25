@@ -14,8 +14,9 @@ class Menu {
     private:
         void mainMenu();
         void statistics();
+        void basicServiceMetrics();
         DataManager dataManager;
-        bool isDigit(const string &s);
+        static bool isDigit(const string &s);
 };
 
 #endif //DA2324_PRJ1_G29_MENU_H

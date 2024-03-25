@@ -12,9 +12,7 @@ using namespace std;
 string input = "0";
 
 bool Menu::isDigit(const string& s) {
-    for (char c : s) {
-        if (!isdigit(c)) return false;
-    }
+    if (!all_of(s.begin(), s.end(), ::isdigit)) return false;
     return true;
 }
 
@@ -31,6 +29,8 @@ void Menu::mainMenu() {
             "Welcome to the Water Supply Management!\n"
             "Please choose one of the following options:\n"
             "1: Statistics;\n"
+            "2: Basic Service Metrics;\n"
+            "3: Reliability and Sensitivity to Failures;\n"
             "9: Exit;\n"
             "-------------------------------------------------------------------------------------------------------\n";
     cin >> input;
@@ -43,6 +43,9 @@ void Menu::mainMenu() {
         case 1:
             statistics();
             break;
+        case 2:
+            basicServiceMetrics();
+            break;
         case 9:
             cout << "Goodbye!\n";
             break;
@@ -54,7 +57,6 @@ void Menu::mainMenu() {
 }
 
 void Menu::statistics() {
-    bool invalidInput = false;
     cout << "Madeira or Portugal?\n";
     cout << "1: Madeira\n";
     cout << "2: Portugal\n";
@@ -195,5 +197,47 @@ void Menu::statistics() {
             cout << "Invalid input, try again\n";
             statistics();
             break;
+    }
+}
+
+void Menu::basicServiceMetrics() {
+    cout << "Madeira or Portugal?\n";
+    cout << "1: Madeira\n";
+    cout << "2: Portugal\n";
+    cin >> input;
+    if (!isDigit(input)) {
+        cout << "Invalid input, try again\n";
+        basicServiceMetrics();
+        return;
+    }
+    switch (stoi(input)) {
+        case 1:
+            cout << "Available basic service metrics for Madeira:\n"
+                    "1 - Maximum amount of water that can reach each city\n"
+                    "2 - Maximum amount of water that can reach a specific city\n"
+                    "3 - Can an existing network configuration meet the water needs of its customer?\n"
+                    "4 - Balance the load across the network\n"
+                    "5 - Return to main menu\n";
+            cin >> input;
+            if (!isDigit(input)) {
+                cout << "Invalid input, try again\n";
+                basicServiceMetrics();
+                return;
+            }
+            switch (stoi(input)) {
+                case 1: {
+                    //TODO
+                    break;
+                }
+                case 2: {
+                    //TODO
+                    break;
+                }
+                case 3: {
+                    dataManager.citiesCapacity();
+                    mainMenu();
+                    break;
+                }
+            }
     }
 }

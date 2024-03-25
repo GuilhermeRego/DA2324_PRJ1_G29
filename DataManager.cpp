@@ -11,6 +11,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
@@ -150,3 +152,47 @@ void DataManager::readPipes() {
     }
     */
 }
+
+void DataManager::citiesCapacity() {
+    /*
+    for (auto &i : reservoirs) {
+        auto reservoir = graph.findVertex(i.first);
+        cout << reservoir->getInfo() << " can supply ";
+        int totalCapacity = 0;
+        for (auto &edge : reservoir->getAdj()) {
+            totalCapacity += edge->getWeight();
+        }
+        cout << min(totalCapacity, (int) i.second.getMaxDelivery()) << " to all of its cities" << endl;
+    }
+    */
+
+    unordered_map<string, int> sites;
+    for (auto &city : cities) {
+        sites.insert({city.first, 0});
+    }
+    for (auto &vertex : graph.getVertexSet()) {
+        for (auto &edge : vertex->getAdj()) {
+            if (edge->getDest()->getType() == CITY) {
+                sites[edge->getDest()->getInfo()] += edge->getWeight();
+            }
+        }
+    }
+    unordered_map<string, int> citiesWithoutWater;
+    for (auto &site : sites) {
+        if (cities.find(site.first) != cities.end()) {
+            cout << "City " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a capacity of " << site.second << endl;
+            if (site.second < cities.at(site.first).getDemand()) {
+                citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
+            }
+        }
+    }
+    cout << endl;
+    if (!citiesWithoutWater.empty()) {
+        cout << "Cities without enough capacity:" << endl;
+        for (auto &city: citiesWithoutWater) {
+            cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
+        }
+    }
+}
+
+// TODO: cidades podem variar na sua capacidade (????)
