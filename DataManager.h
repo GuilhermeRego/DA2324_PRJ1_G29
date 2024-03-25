@@ -10,7 +10,8 @@
 #include "City.h"
 #include "Reservoir.h"
 #include "Station.h"
-#include "Pipe.h"
+
+using namespace std;
 
 class DataManager {
     public:
@@ -19,12 +20,18 @@ class DataManager {
         void readPipes();
         void readReservoirs();
         void readStations();
-        void normalizePopulation(std::string &population);
+
+        static void normalizePopulation(string &population);
+
+        unordered_map<string, City> getCities() const { return cities; }
+        unordered_map<string, Reservoir> getReservoirs() const { return reservoirs; }
+        unordered_map<string, Station> getStations() const { return stations; }
+        Graph<string> getGraph() const { return graph; }
     private:
-        std::unordered_map<std::string, City> cities;
-        std::unordered_map<std::string, Reservoir> reservoirs;
-        std::unordered_map<std::string, Station> stations;
-        Graph<std::string> graph;
+        unordered_map<string, City> cities;
+        unordered_map<string, Reservoir> reservoirs;
+        unordered_map<string, Station> stations;
+        Graph<string> graph;
 };
 
 

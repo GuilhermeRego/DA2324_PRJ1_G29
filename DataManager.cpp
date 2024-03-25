@@ -143,7 +143,6 @@ void DataManager::readPipes() {
     /*
     for (auto &vertex: graph.getVertexSet()) {
         cout << vertex->getInfo() << "->";
-        // Faça com que o output seja no formato do output seja  source -> dest
         for (auto &edge: vertex->getAdj()) {
             cout << edge->getDest()->getInfo() << " ";
         }

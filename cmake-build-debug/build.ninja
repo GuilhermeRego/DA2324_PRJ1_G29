@@ -70,13 +70,6 @@ build CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj: CXX_COMPILER__DA2324_PRJ1_G29
   OBJECT_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
   OBJECT_FILE_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
 
-build CMakeFiles/DA2324_PRJ1_G29.dir/Pipe.cpp.obj: CXX_COMPILER__DA2324_PRJ1_G29_unscanned_Debug C$:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Pipe.cpp || cmake_object_order_depends_target_DA2324_PRJ1_G29
-  DEP_FILE = CMakeFiles\DA2324_PRJ1_G29.dir\Pipe.cpp.obj.d
-  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/.
-  OBJECT_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
-  OBJECT_FILE_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
-
 build CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: CXX_COMPILER__DA2324_PRJ1_G29_unscanned_Debug C$:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/main.cpp || cmake_object_order_depends_target_DA2324_PRJ1_G29
   DEP_FILE = CMakeFiles\DA2324_PRJ1_G29.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
@@ -91,6 +84,13 @@ build CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj: CXX_COMPILER__DA2324_P
   OBJECT_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
   OBJECT_FILE_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
 
+build CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj: CXX_COMPILER__DA2324_PRJ1_G29_unscanned_Debug C$:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Menu.cpp || cmake_object_order_depends_target_DA2324_PRJ1_G29
+  DEP_FILE = CMakeFiles\DA2324_PRJ1_G29.dir\Menu.cpp.obj.d
+  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/.
+  OBJECT_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
+  OBJECT_FILE_DIR = CMakeFiles\DA2324_PRJ1_G29.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target DA2324_PRJ1_G29
@@ -99,7 +99,7 @@ build CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj: CXX_COMPILER__DA2324_P
 #############################################
 # Link the executable DA2324_PRJ1_G29.exe
 
-build DA2324_PRJ1_G29.exe: CXX_EXECUTABLE_LINKER__DA2324_PRJ1_G29_Debug CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/Pipe.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj
+build DA2324_PRJ1_G29.exe: CXX_EXECUTABLE_LINKER__DA2324_PRJ1_G29_Debug CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\DA2324_PRJ1_G29.dir

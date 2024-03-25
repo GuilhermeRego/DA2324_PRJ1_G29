@@ -23,7 +23,7 @@ class Reservoir {
         std::string getMunicipality() { return municipality; }
         std::string getId() { return id; }
         std::string getCode() { return code; }
-        double getMaxDelivery() { return maxDelivery; }
+        double getMaxDelivery() const { return maxDelivery; }
         void setName(std::string name) { this->name = name; }
         void setMunicipality(std::string municipality) { this->municipality = municipality; }
         void setId(int id) { this->id = id; }
