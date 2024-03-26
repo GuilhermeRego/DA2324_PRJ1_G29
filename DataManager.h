@@ -1,4 +1,3 @@
-
 //
 // Created by guire on 07/03/2024.
 //
@@ -28,6 +27,8 @@ public:
     unordered_map<string, Reservoir> getReservoirs() const { return reservoirs; }
     unordered_map<string, Station> getStations() const { return stations; }
     Graph<string> getGraph() const { return graph; }
+
+    void citiesCapacity();
 private:
     unordered_map<string, City> cities;
     unordered_map<string, Reservoir> reservoirs;

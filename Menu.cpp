@@ -13,9 +13,7 @@ using namespace std;
 string input = "0";
 
 bool Menu::isDigit(const string& s) {
-    for (char c : s) {
-        if (!isdigit(c)) return false;
-    }
+    if (!all_of(s.begin(), s.end(), ::isdigit)) return false;
     return true;
 }
 
@@ -33,6 +31,8 @@ void Menu::mainMenu() {
             "Please choose one of the following options:\n"
             "1: Statistics;\n"
             "2: Determine maximum water reach for each city using Edmonds Karp;\n"
+            "3: Can an existing network configuration meet the water needs of its customer?\n"
+            "4: Reliability and Sensitivity to Failures;\n"
             "9: Exit;\n"
             "-------------------------------------------------------------------------------------------------------\n";
     cin >> input;
@@ -48,6 +48,11 @@ void Menu::mainMenu() {
         case 2:
             maxWaterReach();
             break;
+        case 3:
+            /*
+            dataManager.citiesCapacity();
+            mainMenu(); */
+            break;
         case 9:
             cout << "Goodbye!\n";
             break;
@@ -59,7 +64,6 @@ void Menu::mainMenu() {
 }
 
 void Menu::statistics() {
-    bool invalidInput = false;
     cout << "Madeira or Portugal?\n";
     cout << "1: Madeira\n";
     cout << "2: Portugal\n";
@@ -203,7 +207,6 @@ void Menu::statistics() {
     }
 }
 
-
 // Function to test the given vertex 'w' and visit it if conditions are met
 template <class T>
 void testAndVisit(std::queue<Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double residual) {
@@ -302,79 +305,145 @@ void edmondsKarp(Graph<T> *g, string source, string target) {
     }
 }
 
-void Menu::maxWaterReach() {
-    while (true) {
-        // Display reservoir options for the user to choose as the source
-        cout << "Select the water reservoir as the source:" << endl;
-        int i = 1;
-        unordered_map<int, string> reservoirChoices; // Map numerical choices to reservoir names
-        for (auto &reservoir : dataManager.getReservoirs()) {
-            cout << i << ": " << reservoir.second.getName() << endl;
-            reservoirChoices[i] = reservoir.second.getCode(); // Store numerical choice and corresponding reservoir name
-            i++;
-        }
-        int reservoirChoice;
-        cin >> reservoirChoice;
-        // Validate the user's input
-        if (reservoirChoice < 1 || reservoirChoice > reservoirChoices.size()) {
-            cout << "Invalid reservoir choice. Please try again." << endl;
-            continue; // Restart the loop to prompt the user again
-        }
-        // Set the selected reservoir as the source
-        string source = reservoirChoices[reservoirChoice]; // Get the reservoir name based on user's numerical choice
 
-        // Display city options for the user to choose as the sink
-        cout << "Select the city as the sink:" << endl;
-        i = 1;
-        unordered_map<int, string> cityChoices; // Map numerical choices to city names
-        for (auto &city : dataManager.getCities()) {
-            cout << i << ": " << city.second.getName() << endl;
-            cityChoices[i] = city.second.getCode(); // Store numerical choice and corresponding city name
-            i++;
-        }
-        int cityChoice;
-        cin >> cityChoice;
-        // Validate the user's input
-        if (cityChoice < 1 || cityChoice > cityChoices.size()) {
-            cout << "Invalid city choice. Please try again." << endl;
-            continue; // Restart the loop to prompt the user again
-        }
-        // Set the selected city as the sink
-        string sink = cityChoices[cityChoice]; // Get the city name based on user's numerical choice
+void Menu::connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy) {
 
-        // Create a copy of the graph to avoid modifying the original graph
-        Graph<std::string> graphCopy = dataManager.getGraph();
-
-        // Call the edmondsKarp function to calculate the maximum flow
-        edmondsKarp(&graphCopy, source, sink);
-
-        // Retrieve the maximum flow value from the sink city's vertex
-        Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
-        double maxFlow = 0;
-        for (auto& incomingEdge : sinkVertex->getIncoming()) {
-            maxFlow += incomingEdge->getFlow();
-        }
-
-        // Display the maximum flow in the console
-        cout << "Maximum flow from reservoir to city: " << maxFlow << endl;
-
-        // Write the maximum flow to a file
-        ofstream outputFile("max_flow_reservoir_to_city.txt");
-        if (outputFile.is_open()) {
-            outputFile << "Maximum flow from reservoir to city: " << maxFlow << endl;
-            outputFile.close();
-            cout << "Results written to max_flow_reservoir_to_city.txt" << endl;
-        } else {
-            cout << "Unable to open file for writing" << endl;
-        }
-
-        // Ask the user if they want to perform another calculation
-        cout << "\n"<< "Do you want to calculate maximum flow again? (y/n): ";
-        char choice;
-        cin >> choice;
-        if (choice != 'y' && choice != 'Y') {
-             break;
-        }
-        cout << "\n";
+    graphCopy.addVertex(superSource);
+    // Iterate over all reservoirs and connect them to the super source in the copy of the graph
+    for (auto &reservoir : dataManager.getReservoirs()) {
+        string reservoirCode = reservoir.second.getCode();
+        double maxDelivery = reservoir.second.getMaxDelivery();
+        // Add an edge from the super source to the reservoir in the copy of the graph
+        graphCopy.addEdge(superSource, reservoirCode, maxDelivery);
     }
 }
+
+void Menu::maxWaterReach() {
+    while (true) {
+        // Create a copy of the graph to avoid modifying the original graph
+        Graph<string> graphCopy = dataManager.getGraph();
+
+        // Create a super source representing all reservoirs
+        string superSource = "SuperSource";
+
+        // Connect the super source to all reservoirs in the copy of the graph
+        connectSuperSourceToReservoirs(superSource, graphCopy);
+
+        // Display options for the user to choose
+        cout << "Choose an option:" << endl;
+        cout << "1. Calculate maximum flow from reservoirs to each city" << endl;
+        cout << "2. Calculate overall maximum flow from reservoirs to all cities" << endl;
+        cout << "3. Exit" << endl;
+        int option;
+        cin >> option;
+
+        switch (option) {
+            case 1: {
+                // Display city options for the user to choose as the sink
+                cout << "Select the city as the sink:" << endl;
+                int i = 1;
+                unordered_map<int, string> cityChoices; // Map numerical choices to city names
+                for (auto &city: dataManager.getCities()) {
+                    cout << i << ": " << city.second.getName() << endl;
+                    cityChoices[i] = city.second.getCode(); // Store numerical choice and corresponding city name
+                    i++;
+                }
+                int cityChoice;
+                cin >> cityChoice;
+                // Validate the user's input
+                if (cityChoice < 1 || cityChoice > cityChoices.size()) {
+                    cout << "Invalid city choice. Please try again." << endl;
+                    continue; // Restart the loop to prompt the user again
+                }
+                // Set the selected city as the sink
+                string sink = cityChoices[cityChoice]; // Get the city name based on user's numerical choice
+
+                // Call the edmondsKarp function to calculate the maximum flow from the super source to the selected city
+                edmondsKarp(&graphCopy, superSource, sink);
+
+                // Retrieve the maximum flow value from the sink city's vertex
+                Vertex<string> *sinkVertex = graphCopy.findVertex(sink);
+                double maxFlow = 0;
+                for (auto &incomingEdge: sinkVertex->getIncoming()) {
+                    maxFlow += incomingEdge->getFlow();
+                }
+
+                // Display the maximum flow in the console
+                cout << "Maximum flow from reservoirs to city " << sink << ": " << maxFlow << endl;
+
+                // Write the maximum flow to a file
+                ofstream outputFile("max_flow_reservoir_to_" + sink + ".txt");
+                if (outputFile.is_open()) {
+                    outputFile << "Maximum flow from reservoirs to city " << sink << ": " << maxFlow << endl;
+                    outputFile.close();
+                    cout << "Results written to max_flow_reservoir_to_" << sink << ".txt" << endl;
+                } else {
+                    cout << "Unable to open file for writing" << endl;
+                }
+                break;
+            }
+
+            case 2: {
+                // Display header for the results
+                cout << "Maximum flow for each city:" << endl;
+
+                double maxflowoverall = 0.0;
+
+                // Iterate over all cities in the network
+                for (auto &city : dataManager.getCities()) {
+                    string sink = city.second.getCode(); // Set the current city as the sink
+
+                    // Call the edmondsKarp function to calculate the maximum flow for the current city
+                    edmondsKarp(&graphCopy, superSource, sink);
+
+                    // Retrieve the maximum flow value from the sink city's vertex
+                    Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
+                    double maxFlow = 0;
+                    for (auto& incomingEdge : sinkVertex->getIncoming()) {
+                        maxFlow += incomingEdge->getFlow();
+                    }
+                    maxflowoverall+=maxFlow;
+                    // Display the maximum flow for the current city
+                    cout << "City: " << city.second.getName() << ", Max Flow: " << maxFlow << endl;
+                }
+                cout << "Max Flow Overall:" << maxflowoverall   << endl;
+                cout << "\n";
+                // Write the results to a file
+                ofstream outputFile("max_flow_for_each_city.txt");
+                if (outputFile.is_open()) {
+                    outputFile << "Maximum flow for each city:" << endl;
+                    for (auto &city : dataManager.getCities()) {
+                        string sink = city.second.getCode(); // Set the current city as the sink
+
+                        // Call the edmondsKarp function to calculate the maximum flow for the current city
+                        edmondsKarp(&graphCopy, superSource, sink);
+
+                        // Retrieve the maximum flow value from the sink city's vertex
+                        Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
+                        double maxFlow = 0;
+                        for (auto& incomingEdge : sinkVertex->getIncoming()) {
+                            maxFlow += incomingEdge->getFlow();
+                        }
+
+                        // Write the maximum flow for the current city to the file
+                        outputFile << "City: " << city.second.getName() << ", Max Flow: " << maxFlow << endl;
+                    }
+                    outputFile << "Max Flow Overall:" << maxflowoverall  << endl;
+
+                    outputFile.close();
+                    cout << "Results written to max_flow_for_each_city.txt" << endl;
+                } else {
+                    cout << "Unable to open file for writing" << endl;
+                }
+                break;
+            }
+
+            case 3: {
+                return;
+            }
+        }
+    }
+}
+
+
+

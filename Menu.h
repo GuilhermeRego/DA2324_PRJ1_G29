@@ -15,8 +15,9 @@ private:
     void mainMenu();
     void statistics();
     void  maxWaterReach();
+    void connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy);
     DataManager dataManager;
-    bool isDigit(const string &s);
+    static bool isDigit(const string &s);
 };
 
 #endif //DA2324_PRJ1_G29_MENU_H
