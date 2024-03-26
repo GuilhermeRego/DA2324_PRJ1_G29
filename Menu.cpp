@@ -49,9 +49,8 @@ void Menu::mainMenu() {
             maxWaterReach();
             break;
         case 3:
-            /*
             dataManager.citiesCapacity();
-            mainMenu(); */
+            mainMenu();
             break;
         case 9:
             cout << "Goodbye!\n";
