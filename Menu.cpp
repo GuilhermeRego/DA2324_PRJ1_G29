@@ -7,6 +7,9 @@
 #include <string>
 #include <iostream>
 
+#define RESET   "\033[0m"
+#define GREEN   "\033[32m"
+
 using namespace std;
 
 string input = "0";
@@ -27,12 +30,13 @@ void Menu::init() {
 }
 
 void Menu::mainMenu() {
-    cout << "\n\n-------------------------------------------------------------------------------------------------------\n"
+    cout << "\n-------------------------------------------------------------------------------------------------------\n"
             "Welcome to the Water Supply Management!\n"
             "Please choose one of the following options:\n"
             "1: Statistics;\n"
             "9: Exit;\n"
-            "-------------------------------------------------------------------------------------------------------\n";
+            "-------------------------------------------------------------------------------------------------------\n"
+            << GREEN << ">> " << RESET;
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -44,7 +48,7 @@ void Menu::mainMenu() {
             statistics();
             break;
         case 9:
-            cout << "Goodbye!\n";
+            cout << "\nGoodbye!\n";
             break;
         default:
             cout << "Invalid input, try again\n";
@@ -55,9 +59,9 @@ void Menu::mainMenu() {
 
 void Menu::statistics() {
     bool invalidInput = false;
-    cout << "Madeira or Portugal?\n";
+    cout << "\nMadeira or Portugal?\n";
     cout << "1: Madeira\n";
-    cout << "2: Portugal\n";
+    cout << "2: Portugal\n" << GREEN << ">> " << RESET;
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -67,7 +71,7 @@ void Menu::statistics() {
 
     switch(stoi(input)) {
         case 1:
-            cout << "Available statistics for Madeira:\n";
+            cout << "\nAvailable statistics for Madeira:\n";
             cout << "1 - Number of cities, reservoirs and stations\n"
                     "2 - Total population\n"
                     "3 - Total demand\n"
@@ -76,8 +80,10 @@ void Menu::statistics() {
                     "6 - Order cities by demand\n"
                     "7 - Order reservoirs by maximum delivery\n"
                     "8 - Show connections between service points\n"
-                    "9 - Return to main menu\n";
+                    "9 - Return to main menu\n"
+                    << GREEN << ">> " << RESET;
             cin >> input;
+            cout << endl;
             if (!isDigit(input)) {
                 cout << "Invalid input, try again\n";
                 statistics();
@@ -111,7 +117,8 @@ void Menu::statistics() {
                     for (auto &reservoir: dataManager.getReservoirs()) {
                         totalMaxDelivery += reservoir.second.getMaxDelivery();
                     }
-                    cout << "Average maximum delivery: " << totalMaxDelivery / (double) dataManager.getReservoirs().size()
+                    cout << "Average maximum delivery: "
+                         << totalMaxDelivery / (double) dataManager.getReservoirs().size()
                          << endl;
                     break;
                 }
@@ -153,27 +160,28 @@ void Menu::statistics() {
                     for (auto &reservoir: dataManager.getReservoirs()) {
                         reservoirs.emplace_back(reservoir);
                     }
-                    sort(reservoirs.begin(), reservoirs.end(), [](const pair<string, Reservoir> &a, const pair<string, Reservoir> &b) {
-                        return a.second.getMaxDelivery() > b.second.getMaxDelivery();
-                    });
+                    sort(reservoirs.begin(), reservoirs.end(),
+                         [](const pair<string, Reservoir> &a, const pair<string, Reservoir> &b) {
+                             return a.second.getMaxDelivery() > b.second.getMaxDelivery();
+                         });
                     int i = 1;
                     for (auto &reservoir: reservoirs) {
-                        cout << i << ": " << reservoir.second.getName() << " - " << reservoir.second.getMaxDelivery() << endl;
+                        cout << i << ": " << reservoir.second.getName() << " - " << reservoir.second.getMaxDelivery()
+                             << endl;
                         i++;
                     }
                     break;
                 }
                 case 8: {
                     cout << "Connections between service points (In the format \"source -> dest\"):\n";
-                    for (auto &vertex : dataManager.getGraph().getVertexSet()) {
+                    for (auto &vertex: dataManager.getGraph().getVertexSet()) {
                         if (!vertex->getAdj().empty()) {
                             cout << vertex->getInfo() << " -> ";
                             for (auto &edge: vertex->getAdj()) {
                                 cout << edge->getDest()->getInfo() << " ";
                             }
                             cout << endl;
-                        }
-                        else {
+                        } else {
                             cout << vertex->getInfo() << " -> No connections\n";
                         }
                     }
