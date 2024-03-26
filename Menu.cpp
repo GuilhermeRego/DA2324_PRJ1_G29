@@ -56,7 +56,7 @@ void Menu::mainMenu() {
             break;
         case 9:
             cout << "Goodbye!\n";
-            return;
+            exit(0);
         default:
             cout << "Invalid input, try again\n";
             mainMenu();
@@ -191,7 +191,7 @@ void Menu::statistics() {
 void Menu::basicServiceMetrics() {
     cout << "Basic Service Metrics: \n"
             "1 - Determine maximum water reach for each city;\n"
-            "2 - Can an existing network configuration meet the water nneds of its customers?;\n"
+            "2 - Can an existing network configuration meet the water needs of its customers?;\n"
             "9 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {

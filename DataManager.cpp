@@ -172,8 +172,10 @@ void DataManager::citiesCapacity() {
     }
     for (auto &vertex : graph.getVertexSet()) {
         for (auto &edge : vertex->getAdj()) {
-            if (edge->getDest()->getType() == CITY) {
-                sites[edge->getDest()->getInfo()] += edge->getWeight();
+            switch(edge->getDest()->getInfo()[0]) {
+                case 'C':
+                    sites[edge->getDest()->getInfo()] += edge->getWeight();
+                    break;
             }
         }
     }
@@ -195,7 +197,7 @@ void DataManager::citiesCapacity() {
     }
 }
 
-// TODO: esta função parece mal implementada
+// TODO: esta função parece mal
 
 
 // Function to test the given vertex 'w' and visit it if conditions are met
