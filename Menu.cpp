@@ -29,8 +29,8 @@ void Menu::mainMenu() {
             "Welcome to the Water Supply Management!\n"
             "Please choose one of the following options:\n"
             "1: Statistics;\n"
-            "2: Basic Service Metrics;\n"
-            "3: Reliability and Sensitivity to Failures;\n"
+            "3: Basic Service Metrics;\n"
+            "4: Reliability and Sensitivity to Failures;\n"
             "9: Exit;\n"
             "-------------------------------------------------------------------------------------------------------\n";
     cin >> input;
@@ -43,7 +43,7 @@ void Menu::mainMenu() {
         case 1:
             statistics();
             break;
-        case 2:
+        case 3:
             basicServiceMetrics();
             break;
         case 9:
