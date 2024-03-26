@@ -18,6 +18,8 @@ class Menu {
         void  maxWaterReach();
         DataManager dataManager;
         static bool isDigit(const string &s);
+
+    void configurations();
 };
 
 #endif //DA2324_PRJ1_G29_MENU_H

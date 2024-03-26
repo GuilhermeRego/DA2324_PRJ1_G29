@@ -29,6 +29,8 @@ class DataManager {
         Graph<string> getGraph() const { return graph; }
 
         void citiesCapacity();
+
+        static void edmondsKarp(Graph<string> *g, string source, string target);
     private:
         unordered_map<string, City> cities;
         unordered_map<string, Reservoir> reservoirs;
