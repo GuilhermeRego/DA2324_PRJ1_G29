@@ -15,6 +15,7 @@ class Menu {
         void mainMenu();
         void statistics();
         void basicServiceMetrics();
+        void  maxWaterReach();
         DataManager dataManager;
         static bool isDigit(const string &s);
 };
