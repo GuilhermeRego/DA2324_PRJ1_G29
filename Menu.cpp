@@ -32,7 +32,7 @@ void Menu::mainMenu() {
             "1: Statistics;\n"
             "2: Determine maximum water reach for each city using Edmonds Karp;\n"
             "3: Can an existing network configuration meet the water needs of its customer?\n"
-            "4: Reliability and Sensitivity to Failures;\n"
+            "4: Check effect of temporarily removing pipelines \n"
             "9: Exit;\n"
             "-------------------------------------------------------------------------------------------------------\n";
     cin >> input;
@@ -52,6 +52,10 @@ void Menu::mainMenu() {
             dataManager.citiesCapacity();
             mainMenu();
             break;
+        case 4:
+            checkPipelineFailures();
+            break;
+
         case 9:
             cout << "Goodbye!\n";
             break;
@@ -444,5 +448,76 @@ void Menu::maxWaterReach() {
     }
 }
 
+void Menu::checkPipelineFailures() {
+    // Display header for the results
+    cout << "Effect of Pipeline Failures:" << endl;
 
+    // Create a copy of the graph to avoid modifying the original graph
+    Graph<std::string> graphCopy = dataManager.getGraph();
+
+    string superSource = "SuperSource";
+
+    // Connect the super source to all reservoirs in the copy of the graph
+    connectSuperSourceToReservoirs(superSource, graphCopy);
+
+    // Iterate over each vertex (city or reservoir) in the network
+    for (auto &vertex : graphCopy.getVertexSet()) {
+
+        if (vertex->getInfo() == superSource) {
+            continue;
+        }
+        // Iterate over the outgoing edges of the current vertex
+        for (auto &edge : vertex->getAdj()) {
+            string pipelineCode = edge->getOrig()->getInfo() + "-" + edge->getDest()->getInfo(); // Get a unique identifier for the pipeline
+
+            // Temporarily set the flow capacity of the pipeline to zero to simulate a rupture
+            double originalCapacity = edge->getWeight(); // Store the original capacity
+            edge->setWeight(0); // Set capacity to zero
+
+            // Display the name of the pipeline being examined
+            cout << "Pipeline: " << pipelineCode << endl;
+
+            // Flag to track if any city is affected
+            bool anyAffected = false;
+
+            // Iterate over each city in the network
+            for (auto &city : dataManager.getCities()) {
+                string cityCode = city.second.getCode(); // Get the city code
+                double requiredRate = city.second.getDemand(); // Get the required water rate for the city
+
+                // Call the Edmonds-Karp algorithm to calculate the flow to the city
+                edmondsKarp(&graphCopy, superSource, cityCode);
+
+                // Retrieve the maximum flow value from the city's vertex
+                Vertex<string> *cityVertex = graphCopy.findVertex(cityCode);
+                double maxFlow = 0;
+                for (auto &incomingEdge : cityVertex->getIncoming()) {
+                    maxFlow += incomingEdge->getFlow();
+                }
+                // Call the Edmonds-Karp algorithm to calculate the flow from reservoirs to the city
+                double deliveredCapacity = maxFlow;
+
+                // Compare the delivered capacity with the required rate
+                if (deliveredCapacity < requiredRate) {
+                    // Calculate the deficit
+                    double deficit = requiredRate - deliveredCapacity;
+                    // Display the affected city along with its deficit
+                    cout << "City: " << city.second.getName() << ", Deficit: " << deficit << endl;
+                    anyAffected = true; // Set flag indicating that at least one city is affected
+                }
+            }
+
+            // Display a message if no city is affected by the pipeline failure
+            if (!anyAffected) {
+                cout << "No city is affected." << endl;
+            }
+
+            // Reset the flow capacity of the pipeline for the next iteration
+            edge->setWeight(originalCapacity);
+
+            // Display separator between different pipelines
+            cout << "------------------------" << endl;
+        }
+    }
+}
 

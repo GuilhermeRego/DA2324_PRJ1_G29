@@ -15,6 +15,7 @@ private:
     void mainMenu();
     void statistics();
     void  maxWaterReach();
+    void checkPipelineFailures();
     void connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy);
     DataManager dataManager;
     static bool isDigit(const string &s);
