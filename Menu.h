@@ -20,6 +20,8 @@ class Menu {
         static bool isDigit(const string &s);
 
     void configurations();
+
+    void reliabilityAndSensitivity();
 };
 
 #endif //DA2324_PRJ1_G29_MENU_H

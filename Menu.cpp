@@ -49,7 +49,7 @@ void Menu::mainMenu() {
             basicServiceMetrics();
             break;
         case 3:
-            //TODO
+            reliabilityAndSensitivity();
             break;
         case 8:
             configurations();
@@ -335,6 +335,33 @@ void Menu::configurations() {
             cout << "Invalid input, try again\n";
             configurations();
             break;
+    }
+}
+
+void Menu::reliabilityAndSensitivity() {
+    cout << "Reliability and Sensitivity to Failures: \n"
+            "1 - Evaluate what happens in terms of the delivery capacity of the network if one specific water reservoir is out of commission;\n"
+            "9 - Return to main menu;\n";
+    cin >> input;
+    if (!isDigit(input)) {
+        cout << "Invalid input, try again\n";
+        reliabilityAndSensitivity();
+        return;
+    }
+    switch (stoi(input)) {
+        case 1 : {
+            cout << "Write the code of the water reservoir to be out of commission:" << endl;
+            cin >> input;
+            if (dataManager.getReservoirs().find(input) == dataManager.getReservoirs().end()) {
+                cout << "Invalid reservoir code, try again\n";
+                reliabilityAndSensitivity();
+                return;
+            }
+            cout << "With the reservoir:" << endl;
+            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            cout << endl << "Without the reservoir:" << endl;
+            dataManager.reservoirOutCommission(dataManager.getReservoirs().at(input), sites);
+        }
     }
 }
 

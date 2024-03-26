@@ -153,18 +153,7 @@ void DataManager::readPipes() {
     */
 }
 
-void DataManager::citiesCapacity() {
-    /*
-    for (auto &i : reservoirs) {
-        auto reservoir = graph.findVertex(i.first);
-        cout << reservoir->getInfo() << " can supply ";
-        int totalCapacity = 0;
-        for (auto &edge : reservoir->getAdj()) {
-            totalCapacity += edge->getWeight();
-        }
-        cout << min(totalCapacity, (int) i.second.getMaxDelivery()) << " to all of its cities" << endl;
-    }
-    */
+unordered_map<string, int> DataManager::citiesCapacity() {
 
     unordered_map<string, int> sites;
     for (auto &city : cities) {
@@ -195,10 +184,8 @@ void DataManager::citiesCapacity() {
             cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
         }
     }
+    return sites;
 }
-
-// TODO: esta função parece mal
-
 
 // Function to test the given vertex 'w' and visit it if conditions are met
 template <class T>
@@ -294,6 +281,41 @@ void DataManager::edmondsKarp(Graph<string> *g, string source, string target) {
     while (findAugmentingPath(g, s, t)) {
         double f = findMinResidualAlongPath(s, t);
         augmentFlowAlongPath(s, t, f);
+    }
+}
+
+void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &oldSites) {
+    Graph<string> graphCopy = graph;
+    graphCopy.removeVertex(reservoir.getCode());
+    unordered_map<string, int> newSites;
+    for (auto &city : cities) {
+        newSites.insert({city.first, 0});
+    }
+    for (auto &vertex : graphCopy.getVertexSet()) {
+        for (auto &edge : vertex->getAdj()) {
+            switch(edge->getDest()->getInfo()[0]) {
+                case 'C':
+                    cout << edge->getOrig()->getInfo() << " " << edge->getDest()->getInfo() << " " << edge->getWeight() << endl;
+                    newSites[edge->getDest()->getInfo()] += edge->getWeight();
+                    break;
+            }
+        }
+    }
+    unordered_map<string, int> citiesWithoutWater;
+    for (auto &site : newSites) {
+        if (cities.find(site.first) != cities.end()) {
+            cout << "City " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a capacity of " << site.second << endl;
+            if (site.second < cities.at(site.first).getDemand()) {
+                citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
+            }
+        }
+    }
+    cout << endl;
+    if (!citiesWithoutWater.empty()) {
+        cout << "Cities without enough capacity:" << endl;
+        for (auto &city: citiesWithoutWater) {
+            cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
+        }
     }
 }
 
