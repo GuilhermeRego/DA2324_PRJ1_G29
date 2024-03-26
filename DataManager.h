@@ -27,7 +27,14 @@ class DataManager {
         unordered_map<string, Reservoir> getReservoirs() const { return reservoirs; }
         unordered_map<string, Station> getStations() const { return stations; }
         Graph<string> getGraph() const { return graph; }
-    private:
+
+        unordered_map<string, int> citiesCapacity();
+
+        static void edmondsKarp(Graph<string> *g, string source, string target);
+
+        void reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &map);
+
+private:
         unordered_map<string, City> cities;
         unordered_map<string, Reservoir> reservoirs;
         unordered_map<string, Station> stations;
