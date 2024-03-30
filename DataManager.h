@@ -33,6 +33,7 @@ class DataManager {
         static void edmondsKarp(Graph<string> *g, string source, string target);
 
         void reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &map);
+        void pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites);
         void connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy) const;
     private:
         unordered_map<string, City> cities;

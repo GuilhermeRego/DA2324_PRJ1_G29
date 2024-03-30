@@ -460,6 +460,7 @@ void Menu::configurations() {
 void Menu::reliabilityAndSensitivity() {
     cout << "\nReliability and Sensitivity to Failures: \n"
             "1 - Evaluate what happens in terms of the delivery capacity of the network if one specific water reservoir is out of commission;\n"
+            "2 - Evaluate the effect of removing a single pumping station on the network's delivery capacity to all citites;\n"
             "3 - Check the effect of pipeline failures;\n"
             "9 - Return to main menu;\n";
     cin >> input;
@@ -481,6 +482,20 @@ void Menu::reliabilityAndSensitivity() {
             unordered_map<string, int> sites = dataManager.citiesCapacity();
             cout << endl << "\nWithout the reservoir:" << endl;
             dataManager.reservoirOutCommission(dataManager.getReservoirs().at(input), sites);
+            break;
+        }
+        case 2 : {
+            cout << "\nWrite the code of the pumping station to be out of commission:\n";
+            cin >> input;
+            if (dataManager.getStations().find(input) == dataManager.getStations().end()) {
+                cout << "Invalid reservoir code, try again\n";
+                reliabilityAndSensitivity();
+                return;
+            }
+            cout << "\nWith the Pumping Station:" << endl;
+            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            cout << endl << "\nWithout the Pumping Station:" << endl;
+            dataManager.pumpingStationOutCommission(dataManager.getStations().at(input), sites);
             break;
         }
         case 3:
