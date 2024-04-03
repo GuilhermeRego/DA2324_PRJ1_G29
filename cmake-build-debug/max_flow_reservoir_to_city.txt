@@ -1,2 +1,0 @@
-Maximum flow from reservoirs to city C_10: 90
-Maximum flow from reservoirs to city C_7: 300
