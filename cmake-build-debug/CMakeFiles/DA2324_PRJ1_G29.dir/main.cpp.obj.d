@@ -1,5 +1,6 @@
 CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: \
  C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\main.cpp \
+ C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Menu.h \
  C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\DataManager.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/unordered_map \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
@@ -165,5 +166,4 @@ CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/utility \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_relops.h \
  C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Reservoir.h \
- C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Station.h \
- C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Menu.h
+ C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Station.h

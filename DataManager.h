@@ -30,7 +30,7 @@ class DataManager {
 
         unordered_map<string, int> citiesCapacity();
 
-        static void edmondsKarp(Graph<string> *g, string source, string target);
+        static void edmondsKarp(Graph<string> *g, const string& source, const string& target);
 
         void reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &map);
         void pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites);

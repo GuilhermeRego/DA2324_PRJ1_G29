@@ -128,7 +128,7 @@ void DataManager::readPipes() {
         getline(iss, codeB, ',');
         getline(iss, capacity, ',');
         getline(iss, direction, ',');
-        // cout << "CodeA: " << codeA << " CodeB: " << codeB << " Capacity: " << capacity << " Direction: " << direction << endl;
+        // cout << "CodeA: " << codeA << " CodeB: " << codeB << " flow: " << flow << " Direction: " << direction << endl;
         graph.addEdge(codeA, codeB, stod(capacity));
         if (direction == "0") {
             bool hasEdge = false;
@@ -164,7 +164,7 @@ unordered_map<string, int> DataManager::citiesCapacity() {
         for (auto &edge : vertex->getAdj()) {
             switch(edge->getDest()->getInfo()[0]) {
                 case 'C':
-                    sites[edge->getDest()->getInfo()] += edge->getWeight();
+                    sites[edge->getDest()->getInfo()] += (int) edge->getWeight();
                     break;
             }
         }
@@ -174,7 +174,7 @@ unordered_map<string, int> DataManager::citiesCapacity() {
         if (cities.find(site.first) != cities.end()) {
             cout << site.first << " - " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and an actual flow of " << site.second << endl;
             if (site.second < cities.at(site.first).getDemand()) {
-                citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
+                citiesWithoutWater[site.first] = (int) cities.at(site.first).getDemand() - site.second;
             }
         }
     }
@@ -265,7 +265,7 @@ void augmentFlowAlongPath(Vertex<T> *s, Vertex<T> *t, double f) {
 }
 
 // Main function implementing the Edmonds-Karp algorithm
-void DataManager::edmondsKarp(Graph<string> *g, string source, string target) {
+void DataManager::edmondsKarp(Graph<string> *g, const string& source, const string& target) {
     // Find source and target vertices in the graph
     Vertex<string> *s = g->findVertex(source);
     Vertex<string> *t = g->findVertex(target);
@@ -296,7 +296,7 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
         for (auto &edge : vertex->getAdj()) {
             switch(edge->getDest()->getInfo()[0]) {
                 case 'C':
-                    newSites[edge->getDest()->getInfo()] += edge->getWeight();
+                    newSites[edge->getDest()->getInfo()] += (int) edge->getWeight();
                     break;
             }
         }
@@ -304,17 +304,17 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
     unordered_map<string, int> citiesWithoutWater;
     for (auto &site : newSites) {
         if (cities.find(site.first) != cities.end()) {
-            cout << "City " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a capacity of " << site.second << endl;
+            cout << site.first << " - " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a flow of " << site.second << endl;
             if (site.second < cities.at(site.first).getDemand()) {
-                citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
+                citiesWithoutWater[site.first] = (int) cities.at(site.first).getDemand() - site.second;
             }
         }
     }
     cout << endl;
     if (!citiesWithoutWater.empty()) {
-        cout << "Cities without enough capacity:" << endl;
+        cout << "Cities without enough flow:" << endl;
         for (auto &city: citiesWithoutWater) {
-            cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
+            cout << city.first << " - " << cities.at(city.first).getName() << " is missing " << city.second << " flow" << endl;
         }
     }
 
@@ -322,15 +322,15 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
     for (const auto& oldSite : oldSites) {
         int newSiteCapacity = newSites.at(oldSite.first);
         if (oldSite.second > newSiteCapacity) {
-            cout << "City " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " capacity." << endl;
+            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow." << endl;
             changed = true;
         }
         else if (oldSite.second < newSiteCapacity) {
-            cout << "City " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " capacity." << endl;
+            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow." << endl;
             changed = true;
         }
     }
-    if (!changed) cout << "There was no changes on the cities' capacity" << endl;
+    if (!changed) cout << "There was no changes on the cities' flow" << endl;
 }
 
 void DataManager::pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites) {
@@ -344,7 +344,7 @@ void DataManager::pumpingStationOutCommission(Station &station, unordered_map<st
         for (auto &edge : vertex->getAdj()) {
             switch(edge->getDest()->getInfo()[0]) {
                 case 'C':
-                    newSites[edge->getDest()->getInfo()] += edge->getWeight();
+                    newSites[edge->getDest()->getInfo()] += (int) edge->getWeight();
                     break;
             }
         }
@@ -352,19 +352,45 @@ void DataManager::pumpingStationOutCommission(Station &station, unordered_map<st
     unordered_map<string, int> citiesWithoutWater;
     for (auto &site : newSites) {
         if (cities.find(site.first) != cities.end()) {
-            cout << "City " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a capacity of " << site.second << endl;
+            cout << site.first << " - " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive " << site.second << " flow." << endl;
             if (site.second < cities.at(site.first).getDemand()) {
-                citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
+                citiesWithoutWater[site.first] = (int) cities.at(site.first).getDemand() - site.second;
             }
         }
     }
     cout << endl;
     if (!citiesWithoutWater.empty()) {
-        cout << "Cities without enough capacity:" << endl;
+        cout << "Cities without enough flow:" << endl;
         for (auto &city: citiesWithoutWater) {
-            cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity." << endl;
+            cout << city.first << " - " << cities.at(city.first).getName() << " is missing " << city.second << " flow." << endl;
         }
     }
+    cout << endl;
+
+    unordered_map<string, int> citiesDeficit;
+    unordered_map<string, int> citiesExcess;
+    for (const auto& oldSite : oldSites) {
+        int newSiteCapacity = newSites.at(oldSite.first);
+        if (oldSite.second > newSiteCapacity)
+            citiesDeficit[oldSite.first] = oldSite.second - newSiteCapacity;
+        else if (oldSite.second < newSiteCapacity)
+            citiesExcess[oldSite.first] = newSiteCapacity - oldSite.second;
+    }
+    if (!citiesDeficit.empty()) {
+        cout << "Cities with deficit:" << endl;
+        for (auto &city: citiesDeficit) {
+            cout << city.first << " - " << cities.at(city.first).getName() << " has lost " << city.second << " flow." << endl;
+        }
+    }
+    else cout << "There was no cities with deficit" << endl;
+    cout << endl;
+    if (!citiesExcess.empty()) {
+        cout << "Cities which gained flow:" << endl;
+        for (auto &city: citiesExcess) {
+            cout << city.first << " - " << cities.at(city.first).getName() << " has got " << city.second << " flow." << endl;
+        }
+    }
+    else cout << "There was no cities which gained flow." << endl;
 }
 
 void DataManager::connectSuperSourceToReservoirs(const string &superSource, Graph<string> &graphCopy) const {
