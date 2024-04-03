@@ -317,6 +317,20 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
             cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
         }
     }
+
+    bool changed = false;
+    for (const auto& oldSite : oldSites) {
+        int newSiteCapacity = newSites.at(oldSite.first);
+        if (oldSite.second > newSiteCapacity) {
+            cout << "City " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " capacity." << endl;
+            changed = true;
+        }
+        else if (oldSite.second < newSiteCapacity) {
+            cout << "City " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " capacity." << endl;
+            changed = true;
+        }
+    }
+    if (!changed) cout << "There was no changes on the cities' capacity" << endl;
 }
 
 void DataManager::pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites) {

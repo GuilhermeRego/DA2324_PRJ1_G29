@@ -273,12 +273,12 @@ void Menu::maxWaterReach() {
                 }
 
                 // Display the maximum flow in the console
-                cout << "Maximum flow from reservoirs to city " << sink << ": " << maxFlow << endl;
+                cout << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
 
                 // Write the maximum flow to a file
                 ofstream outputFile("max_flow_reservoir_to_city.txt", ios::app);
                 if (outputFile.is_open()) {
-                    outputFile << "Maximum flow from reservoirs to city " << sink << ": " << maxFlow << endl;
+                    outputFile << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
                     outputFile.close();
                     cout << "Results written to max_flow_reservoir_to_city.txt" << endl;
                 } else {
