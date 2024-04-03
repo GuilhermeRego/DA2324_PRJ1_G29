@@ -286,7 +286,7 @@ void DataManager::edmondsKarp(Graph<string> *g, string source, string target) {
 }
 
 void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &oldSites) {
-    Graph<string> graphCopy = graph;
+    Graph<string> graphCopy = graph.deepCopy();
     graphCopy.removeVertex(reservoir.getCode());
     unordered_map<string, int> newSites;
     for (auto &city : cities) {
@@ -296,7 +296,6 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
         for (auto &edge : vertex->getAdj()) {
             switch(edge->getDest()->getInfo()[0]) {
                 case 'C':
-                    cout << edge->getOrig()->getInfo() << " " << edge->getDest()->getInfo() << " " << edge->getWeight() << endl;
                     newSites[edge->getDest()->getInfo()] += edge->getWeight();
                     break;
             }
@@ -317,5 +316,50 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
         for (auto &city: citiesWithoutWater) {
             cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
         }
+    }
+}
+
+void DataManager::pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites) {
+    Graph<string> graphCopy = graph.deepCopy();
+    graphCopy.removeVertex(station.getCode());
+    unordered_map<string, int> newSites;
+    for (auto &city : cities) {
+        newSites.insert({city.first, 0});
+    }
+    for (auto &vertex : graphCopy.getVertexSet()) {
+        for (auto &edge : vertex->getAdj()) {
+            switch(edge->getDest()->getInfo()[0]) {
+                case 'C':
+                    newSites[edge->getDest()->getInfo()] += edge->getWeight();
+                    break;
+            }
+        }
+    }
+    unordered_map<string, int> citiesWithoutWater;
+    for (auto &site : newSites) {
+        if (cities.find(site.first) != cities.end()) {
+            cout << "City " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a capacity of " << site.second << endl;
+            if (site.second < cities.at(site.first).getDemand()) {
+                citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
+            }
+        }
+    }
+    cout << endl;
+    if (!citiesWithoutWater.empty()) {
+        cout << "Cities without enough capacity:" << endl;
+        for (auto &city: citiesWithoutWater) {
+            cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity." << endl;
+        }
+    }
+}
+
+void DataManager::connectSuperSourceToReservoirs(const string &superSource, Graph<string> &graphCopy) const {
+    graphCopy.addVertex(superSource);
+    // Iterate over all reservoirs and connect them to the super source in the copy of the graph
+    for (auto &reservoir : getReservoirs()) {
+        string reservoirCode = reservoir.second.getCode();
+        double maxDelivery = reservoir.second.getMaxDelivery();
+        // Add an edge from the super source to the reservoir in the copy of the graph
+        graphCopy.addEdge(superSource, reservoirCode, maxDelivery);
     }
 }

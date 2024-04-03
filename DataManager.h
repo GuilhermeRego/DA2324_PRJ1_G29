@@ -14,31 +14,34 @@
 using namespace std;
 
 class DataManager {
-    public:
-        DataManager();
-        void readCities();
-        void readPipes();
-        void readReservoirs();
-        void readStations();
+public:
+    DataManager();
+    void readCities();
+    void readPipes();
+    void readReservoirs();
+    void readStations();
 
-        static void normalizePopulation(string &population);
+    static void normalizePopulation(string &population);
 
-        unordered_map<string, City> getCities() const { return cities; }
-        unordered_map<string, Reservoir> getReservoirs() const { return reservoirs; }
-        unordered_map<string, Station> getStations() const { return stations; }
-        Graph<string> getGraph() const { return graph; }
+    unordered_map<string, City> getCities() const { return cities; }
+    unordered_map<string, Reservoir> getReservoirs() const { return reservoirs; }
+    unordered_map<string, Station> getStations() const { return stations; }
+    Graph<string> getGraph() { return graph; }
 
-        unordered_map<string, int> citiesCapacity();
+    unordered_map<string, int> citiesCapacity();
 
-        static void edmondsKarp(Graph<string> *g, string source, string target);
+    static void edmondsKarp(Graph<string> *g, string source, string target);
 
-        void reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &map);
-
+    void reservoirOutCommission(Reservoir &reservoir, unordered_map<string, int> &map);
+    void pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites);
+    void connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy) const;
 private:
-        unordered_map<string, City> cities;
-        unordered_map<string, Reservoir> reservoirs;
-        unordered_map<string, Station> stations;
-        Graph<string> graph;
+    unordered_map<string, City> cities;
+    unordered_map<string, Reservoir> reservoirs;
+    unordered_map<string, Station> stations;
+    Graph<string> graph;
+
+    void evaluateReservoirImpact();
 };
 
 

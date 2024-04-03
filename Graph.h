@@ -144,6 +144,7 @@ public:
     bool isDAG() const;
     bool dfsIsDAG(Vertex<T> *v) const;
     std::vector<T> topsort() const;
+    Graph<T> deepCopy();
 protected:
     std::vector<Vertex<T> *> vertexSet;    // vertex set
 
@@ -155,6 +156,25 @@ protected:
      */
     int findVertexIdx(const T &in) const;
 };
+
+template<class T>
+Graph<T> Graph<T>::deepCopy() {
+    Graph<T> newGraph;
+
+    // Copia os vértices
+    for (auto &vertex : vertexSet) {
+        newGraph.addVertex(vertex->getInfo());
+    }
+
+    // Copia as arestas
+    for (auto &vertex : vertexSet) {
+        for (auto &edge : vertex->getAdj()) {
+            newGraph.addEdge(vertex->getInfo(), edge->getDest()->getInfo(), edge->getWeight());
+        }
+    }
+
+    return newGraph;
+}
 
 void deleteMatrix(int **m, int n);
 void deleteMatrix(double **m, int n);

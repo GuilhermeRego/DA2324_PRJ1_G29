@@ -8,9 +8,6 @@
 #include <iostream>
 #include <fstream>
 
-#define RESET   "\033[0m"
-#define GREEN   "\033[32m"
-
 using namespace std;
 
 string input = "0";
@@ -37,8 +34,7 @@ void Menu::mainMenu() {
             "3 - Reliability and Sensitivity to Failures;\n"
             "8 - Configurations;\n"
             "9 - Exit;\n"
-            "-------------------------------------------------------------------------------------------------------\n"
-            << GREEN << ">> " << RESET;
+            "-------------------------------------------------------------------------------------------------------\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -69,130 +65,130 @@ void Menu::mainMenu() {
 }
 
 void Menu::statistics() {
-        cout << "\nAvailable statistics:\n"
-                "1 - Number of cities, reservoirs and stations\n"
-                "2 - Total population\n"
-                "3 - Total demand\n"
-                "4 - Average maximum delivery\n"
-                "5 - Order cities by population\n"
-                "6 - Order cities by demand\n"
-                "7 - Order reservoirs by maximum delivery\n"
-                "8 - Show connections between service points\n"
-                "9 - Return to main menu\n"
-                << GREEN << ">> " << RESET;;
-        cin >> input;
-        if (!isDigit(input)) {
+    cout << "\nAvailable statistics:\n"
+            "1 - Number of cities, reservoirs and stations\n"
+            "2 - Total population\n"
+            "3 - Total demand\n"
+            "4 - Average maximum delivery\n"
+            "5 - Order cities by population\n"
+            "6 - Order cities by demand\n"
+            "7 - Order reservoirs by maximum delivery\n"
+            "8 - Show connections between service points\n"
+            "9 - Return to main menu\n";
+    cin >> input;
+    if (!isDigit(input)) {
+        cout << "Invalid input, try again\n";
+        statistics();
+        return;
+    }
+    switch (stoi(input)) {
+        case 1: {
+            cout << "\nNumber of cities: " << dataManager.getCities().size() << endl;
+            cout << "Number of reservoirs: " << dataManager.getReservoirs().size() << endl;
+            cout << "Number of stations: " << dataManager.getStations().size() << endl;
+            break;
+        }
+        case 2: {
+            int totalPopulation = 0;
+            for (auto &city: dataManager.getCities()) {
+                totalPopulation += city.second.getPopulation();
+            }
+            cout << "\nTotal population: " << totalPopulation << endl;
+            break;
+        }
+        case 3: {
+            double totalDemand = 0;
+            for (auto &city: dataManager.getCities()) {
+                totalDemand += city.second.getDemand();
+            }
+            cout << "\nTotal demand: " << totalDemand << endl;
+            break;
+        }
+        case 4: {
+            double totalMaxDelivery = 0;
+            for (auto &reservoir: dataManager.getReservoirs()) {
+                totalMaxDelivery += reservoir.second.getMaxDelivery();
+            }
+            cout << "\nAverage maximum delivery: " << totalMaxDelivery / (double) dataManager.getReservoirs().size()
+                 << endl;
+            break;
+        }
+        case 5: {
+            cout << "\nCities ordered by population:\n";
+            vector<pair<string, City>> cities;
+            for (auto &city: dataManager.getCities()) {
+                cities.emplace_back(city);
+            }
+            sort(cities.begin(), cities.end(), [](const pair<string, City> &a, const pair<string, City> &b) {
+                return a.second.getPopulation() > b.second.getPopulation();
+            });
+            int i = 1;
+            for (auto &city: cities) {
+                cout << i << ": " << city.second.getName() << " - " << city.second.getPopulation() << endl;
+                i++;
+            }
+            break;
+        }
+        case 6: {
+            cout << "\nCities ordered by demand:\n";
+            vector<pair<string, City>> cities;
+            for (auto &city: dataManager.getCities()) {
+                cities.emplace_back(city);
+            }
+            sort(cities.begin(), cities.end(), [](const pair<string, City> &a, const pair<string, City> &b) {
+                return a.second.getDemand() > b.second.getDemand();
+            });
+            int i = 1;
+            for (auto &city: cities) {
+                cout << i << ": " << city.second.getName() << " - " << city.second.getDemand() << endl;
+                i++;
+            }
+            break;
+        }
+        case 7: {
+            cout << "\nReservoirs ordered by maximum delivery:\n";
+            vector<pair<string, Reservoir>> reservoirs;
+            for (auto &reservoir: dataManager.getReservoirs()) {
+                reservoirs.emplace_back(reservoir);
+            }
+            sort(reservoirs.begin(), reservoirs.end(), [](const pair<string, Reservoir> &a, const pair<string, Reservoir> &b) {
+                return a.second.getMaxDelivery() > b.second.getMaxDelivery();
+            });
+            int i = 1;
+            for (auto &reservoir: reservoirs) {
+                cout << i << ": " << reservoir.second.getName() << " - " << reservoir.second.getMaxDelivery() << endl;
+                i++;
+            }
+            break;
+        }
+        case 8: {
+            cout << "\nConnections between service points (In the format \"source -> dest\"):\n";
+            for (auto &vertex : dataManager.getGraph().getVertexSet()) {
+                if (!vertex->getAdj().empty()) {
+                    cout << vertex->getInfo() << " -> ";
+                    for (auto &edge: vertex->getAdj()) {
+                        cout << edge->getDest()->getInfo() << " ";
+                    }
+                    cout << endl;
+                }
+                else {
+                    cout << vertex->getInfo() << " -> No connections\n";
+                }
+            }
+            break;
+        }
+        case 9:
+            mainMenu();
+            break;
+        default:
             cout << "Invalid input, try again\n";
             statistics();
-            return;
-        }
-        switch (stoi(input)) {
-            case 1: {
-                cout << "\nNumber of cities: " << dataManager.getCities().size() << endl;
-                cout << "Number of reservoirs: " << dataManager.getReservoirs().size() << endl;
-                cout << "Number of stations: " << dataManager.getStations().size() << endl;
-                break;
-            }
-            case 2: {
-                int totalPopulation = 0;
-                for (auto &city: dataManager.getCities()) {
-                    totalPopulation += city.second.getPopulation();
-                }
-                cout << "\nTotal population: " << totalPopulation << endl;
-                break;
-            }
-            case 3: {
-                double totalDemand = 0;
-                for (auto &city: dataManager.getCities()) {
-                    totalDemand += city.second.getDemand();
-                }
-                cout << "\nTotal demand: " << totalDemand << endl;
-                break;
-            }
-            case 4: {
-                double totalMaxDelivery = 0;
-                for (auto &reservoir: dataManager.getReservoirs()) {
-                    totalMaxDelivery += reservoir.second.getMaxDelivery();
-                }
-                cout << "\nAverage maximum delivery: " << totalMaxDelivery / (double) dataManager.getReservoirs().size()
-                     << endl;
-                break;
-            }
-            case 5: {
-                cout << "\nCities ordered by population:\n";
-                vector<pair<string, City>> cities;
-                for (auto &city: dataManager.getCities()) {
-                    cities.emplace_back(city);
-                }
-                sort(cities.begin(), cities.end(), [](const pair<string, City> &a, const pair<string, City> &b) {
-                    return a.second.getPopulation() > b.second.getPopulation();
-                });
-                int i = 1;
-                for (auto &city: cities) {
-                    cout << i << ": " << city.second.getName() << " - " << city.second.getPopulation() << endl;
-                    i++;
-                }
-                break;
-            }
-            case 6: {
-                cout << "\nCities ordered by demand:\n";
-                vector<pair<string, City>> cities;
-                for (auto &city: dataManager.getCities()) {
-                    cities.emplace_back(city);
-                }
-                sort(cities.begin(), cities.end(), [](const pair<string, City> &a, const pair<string, City> &b) {
-                    return a.second.getDemand() > b.second.getDemand();
-                });
-                int i = 1;
-                for (auto &city: cities) {
-                    cout << i << ": " << city.second.getName() << " - " << city.second.getDemand() << endl;
-                    i++;
-                }
-                break;
-            }
-            case 7: {
-                cout << "\nReservoirs ordered by maximum delivery:\n";
-                vector<pair<string, Reservoir>> reservoirs;
-                for (auto &reservoir: dataManager.getReservoirs()) {
-                    reservoirs.emplace_back(reservoir);
-                }
-                sort(reservoirs.begin(), reservoirs.end(), [](const pair<string, Reservoir> &a, const pair<string, Reservoir> &b) {
-                    return a.second.getMaxDelivery() > b.second.getMaxDelivery();
-                });
-                int i = 1;
-                for (auto &reservoir: reservoirs) {
-                    cout << i << ": " << reservoir.second.getName() << " - " << reservoir.second.getMaxDelivery() << endl;
-                    i++;
-                }
-                break;
-            }
-            case 8: {
-                cout << "\nConnections between service points (In the format \"source -> dest\"):\n";
-                for (auto &vertex : dataManager.getGraph().getVertexSet()) {
-                    if (!vertex->getAdj().empty()) {
-                        cout << vertex->getInfo() << " -> ";
-                        for (auto &edge: vertex->getAdj()) {
-                            cout << edge->getDest()->getInfo() << " ";
-                        }
-                        cout << endl;
-                    }
-                    else {
-                        cout << vertex->getInfo() << " -> No connections\n";
-                    }
-                }
-                break;
-            }
-            case 9:
-                break;
-            default:
-                cout << "Invalid input, try again\n";
-                statistics();
-                break;
-        }
-        cout << "Press any key to continue..." << std::endl;
-        cin.ignore();
-        getchar();
-        mainMenu();
+            break;
+    }
+    cout << "Press any key to continue..." << endl;
+    cin.ignore();
+    getchar();
+    mainMenu();
 }
 
 
@@ -200,8 +196,7 @@ void Menu::basicServiceMetrics() {
     cout << "\nBasic Service Metrics: \n"
             "1 - Determine maximum water reach for each city;\n"
             "2 - Can an existing network configuration meet the water needs of its customers?;\n"
-            "9 - Return to main menu;\n"
-            << GREEN << ">> " << RESET;
+            "9 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -215,124 +210,15 @@ void Menu::basicServiceMetrics() {
         case 2:
             cout << endl;
             dataManager.citiesCapacity();
+            mainMenu();
             break;
         case 9:
             mainMenu();
             break;
         default:
             cout << "Invalid input, try again\n";
+            basicServiceMetrics();
             break;
-
-}
-
-// Function to test the given vertex 'w' and visit it if conditions are met
-template <class T>
-void testAndVisit(std::queue<Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double residual) {
-    // Check if the vertex 'w' is not visited and there is residual capacity
-    if (!w->isVisited() && residual > 0) {
-        // Mark 'w' as visited, set the path through which it was reached, and enqueue it
-        w->setVisited(true);
-        w->setPath(e);
-        q.push(w);
-    }
-}
-
-// Function to find an augmenting path using Breadth-First Search
-template <class T>
-bool findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
-    // Mark all vertices as not visited
-    for (auto v : g->getVertexSet()) {
-        v->setVisited(false);
-    }
-    // Mark the source vertex as visited and enqueue it
-    s->setVisited(true);
-    std::queue<Vertex<T> *> q;
-    q.push(s);
-    // BFS to find an augmenting path
-    while (!q.empty() && !t->isVisited()) {
-        auto v = q.front();
-        q.pop();
-        // Process outgoing edges
-        for (auto e : v->getAdj()) {
-            testAndVisit(q, e, e->getDest(), e->getWeight() - e->getFlow());
-        }
-        // Process incoming edges
-        for (auto e : v->getIncoming()) {
-            testAndVisit(q, e, e->getOrig(), e->getFlow());
-        }
-    }
-    // Return true if a path to the target is found, false otherwise
-    return t->isVisited();
-}
-
-// Function to find the minimum residual capacity along the augmenting path
-template <class T>
-double findMinResidualAlongPath(Vertex<T> *s, Vertex<T> *t) {
-    double f = INF;
-    // Traverse the augmenting path to find the minimum residual capacity
-    for (auto v = t; v != s;) {
-        auto e = v->getPath();
-        if (e->getDest() == v) {
-            f = std::min(f, e->getWeight() - e->getFlow());
-            v = e->getOrig();
-        } else {
-            f = std::min(f, e->getFlow());
-            v = e->getDest();
-        }
-    }
-    // Return the minimum residual capacity
-    return f;
-}
-
-// Function to augment flow along the augmenting path with the given flow value
-template <class T>
-void augmentFlowAlongPath(Vertex<T> *s, Vertex<T> *t, double f) {
-    // Traverse the augmenting path and update the flow values accordingly
-    for (auto v = t; v != s;) {
-        auto e = v->getPath();
-        double flow = e->getFlow();
-        if (e->getDest() == v) {
-            e->setFlow(flow + f);
-            v = e->getOrig();
-        } else {
-            e->setFlow(flow - f);
-            v = e->getDest();
-        }
-    }
-}
-
-// Main function implementing the Edmonds-Karp algorithm
-template <class T>
-void edmondsKarp(Graph<T> *g, string source, string target) {
-    // Find source and target vertices in the graph
-    Vertex<T> *s = g->findVertex(source);
-    Vertex<T> *t = g->findVertex(target);
-    // Validate source and target vertices
-    if (s == nullptr || t == nullptr || s == t)
-        throw std::logic_error("Invalid source and/or target vertex");
-    // Initialize flow on all edges to 0
-    for (auto v : g->getVertexSet()) {
-        for (auto e : v->getAdj()) {
-            e->setFlow(0);
-        }
-    }
-    // While there is an augmenting path, augment the flow along the path
-    while (findAugmentingPath(g, s, t)) {
-        double f = findMinResidualAlongPath(s, t);
-        augmentFlowAlongPath(s, t, f);
-    }
-}
-
-
-void Menu::connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy) {
-
-    graphCopy.addVertex(superSource);
-    // Iterate over all reservoirs and connect them to the super source in the copy of the graph
-    for (auto &reservoir : dataManager.getReservoirs()) {
-        string reservoirCode = reservoir.second.getCode();
-        double maxDelivery = reservoir.second.getMaxDelivery();
-        // Add an edge from the super source to the reservoir in the copy of the graph
-        graphCopy.addEdge(superSource, reservoirCode, maxDelivery);
     }
 }
 
@@ -345,13 +231,13 @@ void Menu::maxWaterReach() {
         string superSource = "SuperSource";
 
         // Connect the super source to all reservoirs in the copy of the graph
-        connectSuperSourceToReservoirs(superSource, graphCopy);
+        dataManager.connectSuperSourceToReservoirs(superSource, graphCopy);
 
         // Display options for the user to choose
         cout << "Choose an option:" << endl;
-        cout << "1. Calculate maximum flow from reservoirs to each city" << endl;
-        cout << "2. Calculate overall maximum flow from reservoirs to all cities" << endl;
-        cout << "3. Exit" << endl;
+        cout << "1 - Calculate maximum flow from reservoirs to each city" << endl;
+        cout << "2 - Calculate overall maximum flow from reservoirs to all cities" << endl;
+        cout << "3 - Exit" << endl;
         int option;
         cin >> option;
 
@@ -377,7 +263,7 @@ void Menu::maxWaterReach() {
                 string sink = cityChoices[cityChoice]; // Get the city name based on user's numerical choice
 
                 // Call the edmondsKarp function to calculate the maximum flow from the super source to the selected city
-                edmondsKarp(&graphCopy, superSource, sink);
+                DataManager::edmondsKarp(&graphCopy, superSource, sink);
 
                 // Retrieve the maximum flow value from the sink city's vertex
                 Vertex<string> *sinkVertex = graphCopy.findVertex(sink);
@@ -390,14 +276,15 @@ void Menu::maxWaterReach() {
                 cout << "Maximum flow from reservoirs to city " << sink << ": " << maxFlow << endl;
 
                 // Write the maximum flow to a file
-                ofstream outputFile("max_flow_reservoir_to_" + sink + ".txt");
+                ofstream outputFile("max_flow_reservoir_to_city.txt", ios::app);
                 if (outputFile.is_open()) {
                     outputFile << "Maximum flow from reservoirs to city " << sink << ": " << maxFlow << endl;
                     outputFile.close();
-                    cout << "Results written to max_flow_reservoir_to_" << sink << ".txt" << endl;
+                    cout << "Results written to max_flow_reservoir_to_city.txt" << endl;
                 } else {
                     cout << "Unable to open file for writing" << endl;
                 }
+                mainMenu();
                 break;
             }
 
@@ -412,7 +299,7 @@ void Menu::maxWaterReach() {
                     string sink = city.second.getCode(); // Set the current city as the sink
 
                     // Call the edmondsKarp function to calculate the maximum flow for the current city
-                    edmondsKarp(&graphCopy, superSource, sink);
+                    DataManager::edmondsKarp(&graphCopy, superSource, sink);
 
                     // Retrieve the maximum flow value from the sink city's vertex
                     Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
@@ -426,38 +313,17 @@ void Menu::maxWaterReach() {
                 }
                 cout << "Max Flow Overall:" << maxflowoverall   << endl;
                 cout << "\n";
-                // Write the results to a file
-                ofstream outputFile("max_flow_for_each_city.txt");
-                if (outputFile.is_open()) {
-                    outputFile << "Maximum flow for each city:" << endl;
-                    for (auto &city : dataManager.getCities()) {
-                        string sink = city.second.getCode(); // Set the current city as the sink
-
-                        // Call the edmondsKarp function to calculate the maximum flow for the current city
-                        edmondsKarp(&graphCopy, superSource, sink);
-
-                        // Retrieve the maximum flow value from the sink city's vertex
-                        Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
-                        double maxFlow = 0;
-                        for (auto& incomingEdge : sinkVertex->getIncoming()) {
-                            maxFlow += incomingEdge->getFlow();
-                        }
-
-                        // Write the maximum flow for the current city to the file
-                        outputFile << "City: " << city.second.getName() << ", Max Flow: " << maxFlow << endl;
-                    }
-                    outputFile << "Max Flow Overall:" << maxflowoverall  << endl;
-
-                    outputFile.close();
-                    cout << "Results written to max_flow_for_each_city.txt" << endl;
-                } else {
-                    cout << "Unable to open file for writing" << endl;
-                }
+                mainMenu();
                 break;
             }
-
             case 3: {
-                return;
+                mainMenu();
+                break;
+            }
+            default: {
+                cout << "Invalid option. Please try again." << endl;
+                maxWaterReach();
+                break;
             }
         }
     }
@@ -468,22 +334,23 @@ void Menu::checkPipelineFailures() {
     cout << "Effect of Pipeline Failures:" << endl;
 
     // Create a copy of the graph to avoid modifying the original graph
-    Graph<std::string> graphCopy = dataManager.getGraph();
+    Graph<string> graphCopy = dataManager.getGraph();
 
     string superSource = "SuperSource";
 
     // Connect the super source to all reservoirs in the copy of the graph
-    connectSuperSourceToReservoirs(superSource, graphCopy);
+    dataManager.connectSuperSourceToReservoirs(superSource, graphCopy);
 
     // Iterate over each vertex (city or reservoir) in the network
-    for (auto &vertex : graphCopy.getVertexSet()) {
+    for (auto &vertex: graphCopy.getVertexSet()) {
 
         if (vertex->getInfo() == superSource) {
             continue;
         }
         // Iterate over the outgoing edges of the current vertex
-        for (auto &edge : vertex->getAdj()) {
-            string pipelineCode = edge->getOrig()->getInfo() + "-" + edge->getDest()->getInfo(); // Get a unique identifier for the pipeline
+        for (auto &edge: vertex->getAdj()) {
+            string pipelineCode = edge->getOrig()->getInfo() + "-" +
+                                  edge->getDest()->getInfo(); // Get a unique identifier for the pipeline
 
             // Temporarily set the flow capacity of the pipeline to zero to simulate a rupture
             double originalCapacity = edge->getWeight(); // Store the original capacity
@@ -496,17 +363,17 @@ void Menu::checkPipelineFailures() {
             bool anyAffected = false;
 
             // Iterate over each city in the network
-            for (auto &city : dataManager.getCities()) {
+            for (auto &city: dataManager.getCities()) {
                 string cityCode = city.second.getCode(); // Get the city code
                 double requiredRate = city.second.getDemand(); // Get the required water rate for the city
 
                 // Call the Edmonds-Karp algorithm to calculate the flow to the city
-                edmondsKarp(&graphCopy, superSource, cityCode);
+                DataManager::edmondsKarp(&graphCopy, superSource, cityCode);
 
                 // Retrieve the maximum flow value from the city's vertex
                 Vertex<string> *cityVertex = graphCopy.findVertex(cityCode);
                 double maxFlow = 0;
-                for (auto &incomingEdge : cityVertex->getIncoming()) {
+                for (auto &incomingEdge: cityVertex->getIncoming()) {
                     maxFlow += incomingEdge->getFlow();
                 }
                 // Call the Edmonds-Karp algorithm to calculate the flow from reservoirs to the city
@@ -534,95 +401,17 @@ void Menu::checkPipelineFailures() {
             cout << "------------------------" << endl;
         }
     }
-=======
-            basicServiceMetrics();
-            break;
-    }
-    cout << "Press any key to continue..." << std::endl;
+    cout << "Press any key to continue..." << endl;
     cin.ignore();
     getchar();
     mainMenu();
-}
-
-void Menu::maxWaterReach() {
-    while (true) {
-        // Display reservoir options for the user to choose as the source
-        cout << "\nSelect the water reservoir as the source:" << endl;
-        int i = 1;
-        unordered_map<int, string> reservoirChoices; // Map numerical choices to reservoir names
-        for (auto &reservoir : dataManager.getReservoirs()) {
-            cout << i << ": " << reservoir.second.getName() << endl;
-            reservoirChoices[i] = reservoir.second.getCode(); // Store numerical choice and corresponding reservoir name
-            i++;
-        }
-        int reservoirChoice;
-        cout << GREEN << ">> " << RESET;
-        cin >> reservoirChoice;
-        // Validate the user's input
-        if (reservoirChoice < 1 || reservoirChoice > reservoirChoices.size()) {
-            cout << "Invalid reservoir choice. Please try again." << endl;
-            continue; // Restart the loop to prompt the user again
-        }
-        // Set the selected reservoir as the source
-        string source = reservoirChoices[reservoirChoice]; // Get the reservoir name based on user's numerical choice
-
-        // Display city options for the user to choose as the sink
-        cout << "\nSelect the city as the sink:" << endl;
-        i = 1;
-        unordered_map<int, string> cityChoices; // Map numerical choices to city names
-        for (auto &city : dataManager.getCities()) {
-            cout << i << ": " << city.second.getName() << endl;
-            cityChoices[i] = city.second.getCode(); // Store numerical choice and corresponding city name
-            i++;
-        }
-        int cityChoice;
-        cout << GREEN << ">> " << RESET;
-        cin >> cityChoice;
-        // Validate the user's input
-        if (cityChoice < 1 || cityChoice > cityChoices.size()) {
-            cout << "Invalid city choice. Please try again." << endl;
-            continue; // Restart the loop to prompt the user again
-        }
-        // Set the selected city as the sink
-        string sink = cityChoices[cityChoice]; // Get the city name based on user's numerical choice
-
-        // Create a copy of the graph to avoid modifying the original graph
-        Graph<string> graphCopy = dataManager.getGraph();
-
-        // Call the edmondsKarp function to calculate the maximum flow
-        DataManager::edmondsKarp(&graphCopy, source, sink);
-
-        // Retrieve the maximum flow value from the sink city's vertex
-        Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
-        double maxFlow = 0;
-        for (auto& incomingEdge : sinkVertex->getIncoming()) {
-            maxFlow += incomingEdge->getFlow();
-        }
-
-        // Display the maximum flow in the console
-        cout << "\nMaximum flow from reservoir " << dataManager.getReservoirs().at(source).getName() << " to city " << dataManager.getCities().at(sink).getName() <<  ": " << maxFlow << endl;
-
-        // Write the maximum flow to a file
-        ofstream outputFile("max_flow_reservoir_to_city.txt", ios::app);
-        if (outputFile.is_open()) {
-            outputFile << "Maximum flow from reservoir " << dataManager.getReservoirs().at(source).getName() << " to city " << dataManager.getCities().at(sink).getName() <<  ": " << maxFlow << endl;
-            outputFile.close();
-            cout << "Results written to max_flow_reservoir_to_city.txt" << endl;
-        }
-        else {
-            cout << "Unable to open file for writing" << endl;
-        }
-
-        break;
-    }
 }
 
 void Menu::configurations() {
     cout << "\nConfigurations:\n"
             "1 - Print max_flow_reservoir_to_city.txt\n"
             "2 - Clear max_flow_reservoir_to_city.txt\n"
-            "9 - Return to main menu;\n"
-            << GREEN << ">> " << RESET;
+            "9 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -671,8 +460,9 @@ void Menu::configurations() {
 void Menu::reliabilityAndSensitivity() {
     cout << "\nReliability and Sensitivity to Failures: \n"
             "1 - Evaluate what happens in terms of the delivery capacity of the network if one specific water reservoir is out of commission;\n"
-            "9 - Return to main menu;\n"
-            << GREEN << ">> " << RESET;;
+            "2 - Evaluate the effect of removing a single pumping station on the network's delivery capacity to all citites;\n"
+            "3 - Check the effect of pipeline failures;\n"
+            "9 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -681,7 +471,7 @@ void Menu::reliabilityAndSensitivity() {
     }
     switch (stoi(input)) {
         case 1 : {
-            cout << "\nWrite the code of the water reservoir to be out of commission:\n" << GREEN << ">> " << RESET;
+            cout << "\nWrite the code of the water reservoir to be out of commission:\n";
             cin >> input;
             if (dataManager.getReservoirs().find(input) == dataManager.getReservoirs().end()) {
                 cout << "Invalid reservoir code, try again\n";
@@ -694,13 +484,29 @@ void Menu::reliabilityAndSensitivity() {
             dataManager.reservoirOutCommission(dataManager.getReservoirs().at(input), sites);
             break;
         }
+        case 2 : {
+            cout << "\nWrite the code of the pumping station to be out of commission:\n";
+            cin >> input;
+            if (dataManager.getStations().find(input) == dataManager.getStations().end()) {
+                cout << "Invalid reservoir code, try again\n";
+                reliabilityAndSensitivity();
+                return;
+            }
+            cout << "\nWith the Pumping Station:" << endl;
+            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            cout << endl << "\nWithout the Pumping Station:" << endl;
+            dataManager.pumpingStationOutCommission(dataManager.getStations().at(input), sites);
+            break;
+        }
+        case 3:
+            checkPipelineFailures();
+            break;
         case 9:
             mainMenu();
             break;
     }
-    cout << "Press any key to continue..." << std::endl;
+    cout << "Press any key to continue..." << endl;
     cin.ignore();
     getchar();
     mainMenu();
 }
-

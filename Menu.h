@@ -8,22 +8,19 @@
 #include "DataManager.h"
 
 class Menu {
-    public:
-        Menu();
-        void init();
-    private:
-        void mainMenu();
-        void statistics();
-        void basicServiceMetrics();
-        void  maxWaterReach();
-        DataManager dataManager;
-        static bool isDigit(const string &s);
-        void checkPipelineFailures();
-        void connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy);
-
-        void configurations();
-
-        void reliabilityAndSensitivity();
+public:
+    Menu();
+    void init();
+private:
+    void mainMenu();
+    void statistics();
+    void basicServiceMetrics();
+    void  maxWaterReach();
+    DataManager dataManager;
+    static bool isDigit(const string &s);
+    void checkPipelineFailures();
+    void configurations();
+    void reliabilityAndSensitivity();
 };
 
 #endif //DA2324_PRJ1_G29_MENU_H
