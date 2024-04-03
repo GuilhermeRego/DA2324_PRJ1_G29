@@ -247,9 +247,11 @@ void Menu::maxWaterReach() {
                 cout << "Select the city as the sink:" << endl;
                 int i = 1;
                 unordered_map<int, string> cityChoices; // Map numerical choices to city names
+                unordered_map<int, double> cityDemands; // Map numerical choices to city demands
                 for (auto &city: dataManager.getCities()) {
                     cout << i << ": " << city.second.getName() << endl;
                     cityChoices[i] = city.second.getCode(); // Store numerical choice and corresponding city name
+                    cityDemands[i] = city.second.getDemand(); // Store numerical choice and corresponding city demand
                     i++;
                 }
                 int cityChoice;
@@ -261,7 +263,7 @@ void Menu::maxWaterReach() {
                 }
                 // Set the selected city as the sink
                 string sink = cityChoices[cityChoice]; // Get the city name based on user's numerical choice
-
+                double demand = cityDemands[cityChoice]; // Get the city demand based on user's numerical choice
                 // Call the edmondsKarp function to calculate the maximum flow from the super source to the selected city
                 DataManager::edmondsKarp(&graphCopy, superSource, sink);
 
@@ -273,12 +275,12 @@ void Menu::maxWaterReach() {
                 }
 
                 // Display the maximum flow in the console
-                cout << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
+                cout << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << min(demand, maxFlow) << endl;
 
                 // Write the maximum flow to a file
                 ofstream outputFile("max_flow_reservoir_to_city.txt", ios::app);
                 if (outputFile.is_open()) {
-                    outputFile << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
+                    outputFile << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << min(demand, maxFlow) << endl;
                     outputFile.close();
                     cout << "Results written to max_flow_reservoir_to_city.txt" << endl;
                 } else {
@@ -297,7 +299,7 @@ void Menu::maxWaterReach() {
                 // Iterate over all cities in the network
                 for (auto &city : dataManager.getCities()) {
                     string sink = city.second.getCode(); // Set the current city as the sink
-
+                    double demand = city.second.getDemand(); // Get the demand of the current city
                     // Call the edmondsKarp function to calculate the maximum flow for the current city
                     DataManager::edmondsKarp(&graphCopy, superSource, sink);
 
@@ -307,11 +309,11 @@ void Menu::maxWaterReach() {
                     for (auto& incomingEdge : sinkVertex->getIncoming()) {
                         maxFlow += incomingEdge->getFlow();
                     }
-                    maxflowoverall+=maxFlow;
+                    maxflowoverall += min(demand, maxFlow);
                     // Display the maximum flow for the current city
-                    cout << "City: " << city.second.getName() << ", Max Flow: " << maxFlow << endl;
+                    cout << city.first << " - " << city.second.getName() << ", Max Flow: " << min(demand, maxFlow) << endl;
                 }
-                cout << "Max Flow Overall:" << maxflowoverall   << endl;
+                cout << "Max Flow Overall: " << maxflowoverall   << endl;
                 cout << "\n";
                 mainMenu();
                 break;

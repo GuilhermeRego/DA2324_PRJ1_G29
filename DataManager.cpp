@@ -172,7 +172,7 @@ unordered_map<string, int> DataManager::citiesCapacity() {
     unordered_map<string, int> citiesWithoutWater;
     for (auto &site : sites) {
         if (cities.find(site.first) != cities.end()) {
-            cout << "City " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and could receive a capacity of " << site.second << endl;
+            cout << site.first << " - " << cities.at(site.first).getName() << " has a demand of " << cities.at(site.first).getDemand() << " and an actual flow of " << site.second << endl;
             if (site.second < cities.at(site.first).getDemand()) {
                 citiesWithoutWater[site.first] = cities.at(site.first).getDemand() - site.second;
             }
@@ -180,9 +180,9 @@ unordered_map<string, int> DataManager::citiesCapacity() {
     }
     cout << endl;
     if (!citiesWithoutWater.empty()) {
-        cout << "Cities without enough capacity:" << endl;
+        cout << "Cities with deficit:" << endl;
         for (auto &city: citiesWithoutWater) {
-            cout << "City " << cities.at(city.first).getName() << " is missing " << city.second << " capacity" << endl;
+            cout << cities.at(city.first).getName() << " has a deficit of " << city.second << endl;
         }
     }
     return sites;

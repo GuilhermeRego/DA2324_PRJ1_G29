@@ -1,0 +1,2 @@
+Maximum flow from reservoirs to city Calheta: 76
+Maximum flow from reservoirs to city Funchal: 740
