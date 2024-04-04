@@ -36,6 +36,7 @@ class DataManager {
         void pumpingStationOutCommission(Station &station, unordered_map<string, int> &oldSites);
         void connectSuperSourceToReservoirs(const string& superSource, Graph<string>& graphCopy) const;
         void connectSuperSinktoCity(const string &supersink, Graph<string> &graphcopy) const;
+        void pipelineFailures(unordered_map<string, int> &oldSites);
     private:
         unordered_map<string, City> cities;
         unordered_map<string, Reservoir> reservoirs;
@@ -43,6 +44,7 @@ class DataManager {
         Graph<string> graph;
 
     void evaluateReservoirImpact();
+
 
 
 };

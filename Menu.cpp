@@ -333,172 +333,6 @@ void Menu::maxWaterReach() {
     }
 }
 
-void Menu::checkPipelineFailures() {
-    // Display header for the results
-    cout << "Effect of Pipeline Failures:" << endl;
-
-    // Create a copy of the graph to avoid modifying the original graph
-    Graph<string> graphCopy = dataManager.getGraph().deepCopy();
-
-    string superSource = "SuperSource";
-
-    string superSink = "SuperSink";
-
-    // Connect the super source to all reservoirs in the copy of the graph
-    dataManager.connectSuperSourceToReservoirs(superSource, graphCopy);
-
-    dataManager.connectSuperSinktoCity(superSink, graphCopy);
-
-    DataManager::edmondsKarp(&graphCopy, superSource, superSink);
-
-    unordered_map<string, int> alreadyDeficitCities;
-    for (auto &city: dataManager.getCities()) {
-        string cityCode = city.second.getCode(); // Get the city code
-        double requiredRate = city.second.getDemand(); // Get the required water rate for the city
-
-        // Retrieve the maximum flow value from the city's vertex
-        Vertex<string> *cityVertex = graphCopy.findVertex(cityCode);
-        double maxFlow = 0;
-        for (auto &incomingEdge: cityVertex->getIncoming()) {
-            maxFlow += incomingEdge->getFlow();
-        }
-        // Call the Edmonds-Karp algorithm to calculate the flow from reservoirs to the city
-        double deliveredCapacity = maxFlow;
-
-        // Compare the delivered capacity with the required rate
-        if (deliveredCapacity < requiredRate) {
-            // Calculate the deficit
-            alreadyDeficitCities[city.second.getName()] = (int) (requiredRate - deliveredCapacity);
-        }
-    }
-
-    //Display every pipeline that the user can remove
-    cout << "Pipelines that can be removed:" << endl;
-    for (auto &vertex: graphCopy.getVertexSet()) {
-        if (vertex->getInfo() == superSource) {
-            continue;
-        }
-        for (auto &edge: vertex->getAdj()) {
-            string pipelineCode = edge->getOrig()->getInfo() + "-" +
-                                  edge->getDest()->getInfo(); // Get a unique identifier for the pipeline
-            cout << pipelineCode << endl;
-        }
-    }
-    cout << "Write in the format <source>-<dest> the pipeline you want to remove to see the affected cities by the removal:" << endl;
-    string pipelineToRemove;
-    cin >> pipelineToRemove;
-
-    Vertex<string> *source = graphCopy.findVertex(pipelineToRemove.substr(0, pipelineToRemove.find('-')));
-    Vertex<string> *dest = graphCopy.findVertex(pipelineToRemove.substr(pipelineToRemove.find('-') + 1, pipelineToRemove.size()));
-
-    // Create a copy of the graph with the pipeline removed
-    Graph<string> graphWithoutPipeline = dataManager.getGraph().deepCopy();
-    graphWithoutPipeline.removeEdge(source->getInfo(), dest->getInfo());
-
-    // Connect the super source to all reservoirs in the copy of the graph
-    dataManager.connectSuperSourceToReservoirs(superSource, graphCopy);
-
-    dataManager.connectSuperSinktoCity(superSink, graphCopy);
-
-    DataManager::edmondsKarp(&graphCopy, superSource, superSink);
-
-    // Display the affected cities
-    cout << "Affected cities:" << endl;
-    for (auto &city: dataManager.getCities()) {
-        string cityCode = city.second.getCode(); // Get the city code
-        double requiredRate = city.second.getDemand(); // Get the required water rate for the city
-
-        // Retrieve the maximum flow value from the city's vertex
-        Vertex<string> *cityVertex = graphCopy.findVertex(cityCode);
-        double maxFlow = 0;
-        for (auto &incomingEdge: cityVertex->getIncoming()) {
-            maxFlow += incomingEdge->getFlow();
-        }
-        // Call the Edmonds-Karp algorithm to calculate the flow from reservoirs to the city
-        double deliveredCapacity = maxFlow;
-        bool found;
-        // Compare the delivered capacity with the required rate
-        if (deliveredCapacity < requiredRate) {
-            found = false;
-            for (auto &deficitCity: alreadyDeficitCities) {
-                if (deficitCity.first == city.second.getName() && deficitCity.second == (int) (requiredRate - deliveredCapacity)){
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {// Calculate the deficit
-                double deficit = requiredRate - deliveredCapacity;
-                // Display the affected city along with its deficit
-                cout << "City: " << city.second.getName() << ", Deficit: " << deficit << endl;
-            }
-        }
-    }
-/*
-    // Iterate over each vertex (city or reservoir) in the network
-    for (auto &vertex: graphCopy.getVertexSet()) {
-
-        if (vertex->getInfo() == superSource) {
-            continue;
-        }
-        // Iterate over the outgoing edges of the current vertex
-        for (auto &edge: vertex->getAdj()) {
-            string pipelineCode = edge->getOrig()->getInfo() + "-" +
-                                  edge->getDest()->getInfo(); // Get a unique identifier for the pipeline
-
-            // Temporarily set the flow capacity of the pipeline to zero to simulate a rupture
-            double originalCapacity = edge->getWeight(); // Store the original capacity
-            edge->setWeight(0); // Set capacity to zero
-
-            // Display the name of the pipeline being examined
-            cout << "Pipeline: " << pipelineCode << endl;
-
-            // Flag to track if any city is affected
-            bool anyAffected = false;
-
-            // Iterate over each city in the network
-            for (auto &city: dataManager.getCities()) {
-                string cityCode = city.second.getCode(); // Get the city code
-                double requiredRate = city.second.getDemand(); // Get the required water rate for the city
-
-                // Retrieve the maximum flow value from the city's vertex
-                Vertex<string> *cityVertex = graphCopy.findVertex(cityCode);
-                double maxFlow = 0;
-                for (auto &incomingEdge: cityVertex->getIncoming()) {
-                    maxFlow += incomingEdge->getFlow();
-                }
-                // Call the Edmonds-Karp algorithm to calculate the flow from reservoirs to the city
-                double deliveredCapacity = maxFlow;
-
-                // Compare the delivered capacity with the required rate
-                if (deliveredCapacity < requiredRate) {
-                    // Calculate the deficit
-                    double deficit = requiredRate - deliveredCapacity;
-                    // Display the affected city along with its deficit
-                    cout << "City: " << city.second.getName() << ", Deficit: " << deficit << endl;
-                    anyAffected = true; // Set flag indicating that at least one city is affected
-                }
-            }
-
-            // Display a message if no city is affected by the pipeline failure
-            if (!anyAffected) {
-                cout << "No city is affected." << endl;
-            }
-
-            // Reset the flow capacity of the pipeline for the next iteration
-            edge->setWeight(originalCapacity);
-
-            // Display separator between different pipelines
-            cout << "------------------------" << endl;
-        }
-    }
-    */
-
-    cout << "Press any key to continue..." << endl;
-    cin.ignore();
-    getchar();
-    mainMenu();
-}
-
 
 void Menu::configurations() {
     cout << "\nConfigurations:\n"
@@ -591,9 +425,12 @@ void Menu::reliabilityAndSensitivity() {
             dataManager.pumpingStationOutCommission(dataManager.getStations().at(input), sites);
             break;
         }
-        case 3:
-            checkPipelineFailures();
+        case 3: {
+            cout << "\nWith the Pipeline:" << endl;
+            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            dataManager.pipelineFailures(sites);
             break;
+        }
         case 9:
             mainMenu();
             break;

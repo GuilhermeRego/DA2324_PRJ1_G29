@@ -143,15 +143,6 @@ void DataManager::readPipes() {
             }
         }
     }
-    /*
-    for (auto &vertex: graph.getVertexSet()) {
-        cout << vertex->getInfo() << "->";
-        for (auto &edge: vertex->getAdj()) {
-            cout << edge->getDest()->getInfo() << " ";
-        }
-        cout << endl;
-    }
-    */
 }
 
 
@@ -427,5 +418,83 @@ void DataManager::connectSuperSinktoCity(const string &supersink, Graph<string> 
         double demand = city.second.getDemand();
         // Add an edge from the super source to the reservoir in the copy of the graph
         graphcopy.addEdge(cityCode, supersink, demand);
+    }
+}
+
+void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
+    // Create a copy of the graph to avoid modifying the original graph
+    Graph<string> graphCopy = graph.deepCopy();
+
+    // Create a super source representing all reservoirs
+    string superSource = "SuperSource";
+    string superSink = "SuperSink";
+
+    // Connect the super source to all reservoirs in the copy of the graph
+    connectSuperSourceToReservoirs(superSource, graphCopy);
+
+    // Connect the super sink to all cities in the copy of the graph
+    connectSuperSinktoCity(superSink, graphCopy);
+
+    // Iterate over each vertex in the graph
+    for (auto &vertex : graphCopy.getVertexSet()) {
+
+            if(vertex->getInfo() == "SuperSource") continue;
+        // Iterate over each adjacent edge of the current vertex
+        for (auto &edge : vertex->getAdj()) {
+
+            if(edge->getDest()->getInfo() == "SuperSink") continue;
+            // Simulate the failure of the current pipeline by setting its flow capacity to zero
+            double originalWeight = edge->getWeight();
+            edge->setWeight(0);
+
+            cout << "\nWithout pipeline: " << edge->getOrig()->getInfo() << " -> " << edge->getDest()->getInfo()<< endl;
+
+            // Run the Edmonds-Karp algorithm to find maximum flow
+            edmondsKarp(&graphCopy, superSource, superSink);
+
+            // Calculate new flow capacities after pipeline failure
+            unordered_map<string, int> newSites;
+            for (auto &city : getCities()) {
+                string sink = city.second.getCode(); // Set the current city as the sink
+                double demand = city.second.getDemand(); // Get the demand of the current city
+
+                // Retrieve the maximum flow value from the sink city's vertex
+                Vertex<string> *sinkVertex = graphCopy.findVertex(sink);
+                double maxFlow = 0;
+                for (auto &incomingEdge: sinkVertex->getIncoming()) {
+                    maxFlow += incomingEdge->getFlow();
+                }
+                newSites.insert({sink, (int) maxFlow});
+            }
+
+            // Identify cities without enough water due to pipeline failure
+            unordered_map<string, int> citiesWithoutWater;
+            for (auto &site : newSites) {
+                if (cities.find(site.first) != cities.end()) {
+                          if (site.second < cities.at(site.first).getDemand()) {
+                        citiesWithoutWater[site.first] = (int) cities.at(site.first).getDemand() - site.second;
+                    }
+                }
+            }
+
+            // Display changes in flow capacities for each city
+            cout << endl;
+            bool changed = false;
+            for (const auto& oldSite : oldSites) {
+                int newSiteCapacity = newSites.at(oldSite.first);
+                if (oldSite.second > newSiteCapacity) {
+                    cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow." << endl;
+                    changed = true;
+                }
+                else if (oldSite.second < newSiteCapacity) {
+                    cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow." << endl;
+                    changed = true;
+                }
+            }
+            if (!changed) cout << "There was no changes on the cities' flow" << endl;
+
+            // Restore the flow capacity of the pipeline for the next iteration
+            edge->setWeight(originalWeight);
+        }
     }
 }

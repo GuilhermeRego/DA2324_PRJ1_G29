@@ -19,7 +19,6 @@ class Menu {
     [[noreturn]] void  maxWaterReach();
         DataManager dataManager;
         static bool isDigit(const string &s);
-        void checkPipelineFailures();
         void configurations();
         void reliabilityAndSensitivity();
 };
