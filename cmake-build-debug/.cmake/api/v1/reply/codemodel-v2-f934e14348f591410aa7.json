@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.27"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DA2324_PRJ1_G29",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "DA2324_PRJ1_G29::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DA2324_PRJ1_G29-Debug-466b2f8ac5fca025a277.json",
+					"name" : "DA2324_PRJ1_G29",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/gabrielbraga/Desktop/ProjetoDA1/DA2324_PRJ1_G29/cmake-build-debug",
+		"source" : "/Users/gabrielbraga/Desktop/ProjetoDA1/DA2324_PRJ1_G29"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

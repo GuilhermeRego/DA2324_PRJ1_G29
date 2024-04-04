@@ -1,0 +1,10 @@
+Maximum flow from reservoirs to city Calheta: 76
+Maximum flow from reservoirs to city Funchal: 740
+Maximum flow from reservoirs to city Funchal: 740
+Maximum flow from reservoirs to city São Vicente: 34
+Maximum flow from reservoirs to city São Vicente: 34
+Maximum flow from reservoirs to city Funchal: 664
+Maximum flow from reservoirs to city Ponta do Sol: 59
+Maximum flow from reservoirs to city São Vicente: 34
+Maximum flow from reservoirs to city Câmara de Lobos: 225
+Maximum flow from reservoirs to city Funchal: 664
