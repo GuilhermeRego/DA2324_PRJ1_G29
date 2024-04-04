@@ -206,7 +206,6 @@ void Menu::basicServiceMetrics() {
     switch (stoi(input)) {
         case 1:
             maxWaterReach();
-            break;
         case 2:
             cout << endl;
             dataManager.citiesCapacity();
@@ -280,7 +279,7 @@ void Menu::maxWaterReach() {
                 }
 
                 // Display the maximum flow in the console
-                cout << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << min(demand, maxFlow) << endl;
+                cout << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
 
                 // Write the maximum flow to a file
                 ofstream outputFile("max_flow_reservoir_to_city.txt", ios::app);
@@ -314,9 +313,9 @@ void Menu::maxWaterReach() {
                     for (auto& incomingEdge : sinkVertex->getIncoming()) {
                         maxFlow += incomingEdge->getFlow();
                     }
-                    maxflowoverall += min(demand, maxFlow);
+                    maxflowoverall += maxFlow;
                     // Display the maximum flow for the current city
-                    cout << city.first << " - " << city.second.getName() << ", Max Flow: " << min(demand, maxFlow) << endl;
+                    cout << city.first << " - " << city.second.getName() << ", Max Flow: " << maxFlow << endl;
                 }
                 cout << "Max Flow Overall: " << maxflowoverall   << endl;
                 cout << "\n";
@@ -330,7 +329,6 @@ void Menu::maxWaterReach() {
             default: {
                 cout << "Invalid option. Please try again." << endl;
                 maxWaterReach();
-                break;
             }
         }
     }
@@ -345,8 +343,14 @@ void Menu::checkPipelineFailures() {
 
     string superSource = "SuperSource";
 
+    string superSink = "SuperSink";
+
     // Connect the super source to all reservoirs in the copy of the graph
     dataManager.connectSuperSourceToReservoirs(superSource, graphCopy);
+
+    dataManager.connectSuperSinktoCity(superSink,graphCopy);
+
+    DataManager::edmondsKarp(&graphCopy, superSource, superSink);
 
     // Iterate over each vertex (city or reservoir) in the network
     for (auto &vertex: graphCopy.getVertexSet()) {
@@ -373,9 +377,6 @@ void Menu::checkPipelineFailures() {
             for (auto &city: dataManager.getCities()) {
                 string cityCode = city.second.getCode(); // Get the city code
                 double requiredRate = city.second.getDemand(); // Get the required water rate for the city
-
-                // Call the Edmonds-Karp algorithm to calculate the flow to the city
-                DataManager::edmondsKarp(&graphCopy, superSource, cityCode);
 
                 // Retrieve the maximum flow value from the city's vertex
                 Vertex<string> *cityVertex = graphCopy.findVertex(cityCode);
