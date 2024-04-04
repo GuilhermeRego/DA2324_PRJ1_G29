@@ -16,10 +16,10 @@ using namespace std;
 class DataManager {
     public:
         DataManager();
-        void readCities();
-        void readPipes();
-        void readReservoirs();
-        void readStations();
+        void readCities(int i);
+        void readPipes(int i);
+        void readReservoirs(int i);
+        void readStations(int i);
 
         static void normalizePopulation(string &population);
 
@@ -44,7 +44,6 @@ class DataManager {
         Graph<string> graph;
 
     void evaluateReservoirImpact();
-
 
 
 };

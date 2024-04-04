@@ -32,8 +32,8 @@ void Menu::mainMenu() {
             "1 - Statistics;\n"
             "2 - Basic Service Metrics;\n"
             "3 - Reliability and Sensitivity to Failures;\n"
-            "8 - Configurations;\n"
-            "9 - Exit;\n"
+            "4 - Configurations;\n"
+            "5 - Exit;\n"
             "-------------------------------------------------------------------------------------------------------\n";
     cin >> input;
     if (!isDigit(input)) {
@@ -51,10 +51,10 @@ void Menu::mainMenu() {
         case 3:
             reliabilityAndSensitivity();
             break;
-        case 8:
+        case 4:
             configurations();
             break;
-        case 9:
+        case 5:
             cout << "\nGoodbye!\n";
             exit(0);
         default:
@@ -64,6 +64,9 @@ void Menu::mainMenu() {
     }
 }
 
+/**
+ * Most of the functions in statistics have O(n) complexity
+ **/
 void Menu::statistics() {
         cout << "\nAvailable statistics:\n"
                 "1 - Number of cities, reservoirs and stations\n"
@@ -83,12 +86,18 @@ void Menu::statistics() {
         }
         switch (stoi(input)) {
             case 1: {
+                /**
+                 * To calculate the size of an unordered_map the time complexity is O(1)
+                 **/
                 cout << "\nNumber of cities: " << dataManager.getCities().size() << endl;
                 cout << "Number of reservoirs: " << dataManager.getReservoirs().size() << endl;
                 cout << "Number of stations: " << dataManager.getStations().size() << endl;
                 break;
             }
             case 2: {
+                /**
+                 * To calculate the total population the time complexity is O(n)
+                 **/
                 int totalPopulation = 0;
                 for (auto &city: dataManager.getCities()) {
                     totalPopulation += city.second.getPopulation();
@@ -97,6 +106,9 @@ void Menu::statistics() {
                 break;
             }
             case 3: {
+                /**
+                 * To calculate the total demand the time complexity is O(n)
+                 **/
                 double totalDemand = 0;
                 for (auto &city: dataManager.getCities()) {
                     totalDemand += city.second.getDemand();
@@ -105,6 +117,9 @@ void Menu::statistics() {
                 break;
             }
             case 4: {
+                /**
+                 * To calculate the average maximum delivery the time complexity is O(n)
+                 **/
                 double totalMaxDelivery = 0;
                 for (auto &reservoir: dataManager.getReservoirs()) {
                     totalMaxDelivery += reservoir.second.getMaxDelivery();
@@ -114,6 +129,9 @@ void Menu::statistics() {
                 break;
             }
             case 5: {
+                /**
+                 * To order cities by population the time complexity is O(n)
+                 **/
                 cout << "\nCities ordered by population:\n";
                 vector<pair<string, City>> cities;
                 for (auto &city: dataManager.getCities()) {
@@ -162,6 +180,9 @@ void Menu::statistics() {
                 break;
             }
             case 8: {
+                /**
+                 * To show connections between service points the time complexity is O(n^2)
+                 **/
                 cout << "\nConnections between service points (In the format \"source -> dest\"):\n";
                 for (auto &vertex : dataManager.getGraph().getVertexSet()) {
                     if (!vertex->getAdj().empty()) {
@@ -224,6 +245,9 @@ void Menu::basicServiceMetrics() {
 void Menu::maxWaterReach() {
     while (true) {
         // Create a copy of the graph to avoid modifying the original graph
+        /**
+         * To create a copy of the graph the time complexity is O(V+E)
+         **/
         Graph<string> graphCopy = dataManager.getGraph().deepCopy();
 
         // Create a super source representing all reservoirs
@@ -232,10 +256,19 @@ void Menu::maxWaterReach() {
         string superSink = "SuperSink";
 
         // Connect the super source to all reservoirs in the copy of the graph
+        /**
+         * To connect the super source to all reservoirs the time complexity is O(V^2)
+         **/
         dataManager.connectSuperSourceToReservoirs(superSource, graphCopy);
 
+        /**
+         * To connect the super sink to all cities the time complexity is O(V^2)
+         **/
         dataManager.connectSuperSinktoCity(superSink,graphCopy);
 
+        /**
+         * To calculate the maximum flow the time complexity is O(VE^2) and the space complexity is O(V+E)
+         */
         DataManager::edmondsKarp(&graphCopy, superSource, superSink);
 
         // Display options for the user to choose
@@ -248,6 +281,9 @@ void Menu::maxWaterReach() {
 
         switch (option) {
             case 1: {
+                /**
+                 * To calculate the maximum flow from reservoirs to each city the time complexity is O(V + E)
+                 **/
                 // Display city options for the user to choose as the sink
                 cout << "Select the city as the sink:" << endl;
                 int i = 1;
@@ -295,6 +331,9 @@ void Menu::maxWaterReach() {
             }
 
             case 2: {
+                /**
+                 * To calculate the overall maximum flow from reservoirs to all cities the time complexity is O(VE)
+                 **/
                 // Display header for the results
                 cout << "Maximum flow for each city:" << endl;
 
@@ -332,7 +371,6 @@ void Menu::maxWaterReach() {
         }
     }
 }
-
 
 void Menu::configurations() {
     cout << "\nConfigurations:\n"
@@ -398,6 +436,9 @@ void Menu::reliabilityAndSensitivity() {
     }
     switch (stoi(input)) {
         case 1 : {
+            /**
+                * To evaluate what happens in terms of the delivery capacity of the network if one specific water reservoir is out of commission the time complexity is O(VE^2)
+             **/
             cout << "\nWrite the code of the water reservoir to be out of commission:\n";
             cin >> input;
             if (dataManager.getReservoirs().find(input) == dataManager.getReservoirs().end()) {
@@ -412,6 +453,9 @@ void Menu::reliabilityAndSensitivity() {
             break;
         }
         case 2 : {
+            /**
+                * To evaluate the effect of removing a single pumping station on the network's delivery capacity to all cities the time complexity is O(VE^2)
+             **/
             cout << "\nWrite the code of the pumping station to be out of commission:\n";
             cin >> input;
             if (dataManager.getStations().find(input) == dataManager.getStations().end()) {

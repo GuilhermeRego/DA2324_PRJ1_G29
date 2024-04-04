@@ -18,21 +18,47 @@
 using namespace std;
 
 DataManager::DataManager() {
-    readCities();
-    readReservoirs();
-    readStations();
-    readPipes();
+    int option;
+    do {
+        cout << "Madeira or Portugal?\n"
+                "1 - Madeira\n"
+                "2 - Portugal\n";
+
+        cin >> option;
+    } while (option != 1 && option != 2);
+    readCities(option);
+    readReservoirs(option);
+    readStations(option);
+    readPipes(option);
 }
 
+/**
+ * Time complexity: O(n)
+ **/
 void DataManager::normalizePopulation(string &population) {
     population.erase(remove(population.begin(), population.end(), ','), population.end());
     population.erase(remove(population.begin(), population.end(), '"'), population.end());
 }
 
-void DataManager::readCities() {
-    ifstream file("../Project1DataSetSmall/Cities_Madeira.csv");
+/**
+ * Time complexity: O(n^2)
+ **/
+void DataManager::readCities(int option) {
+    string csv;
+    switch (option) {
+        case 1:
+            csv = "../data/Project1DataSetSmall/Cities_Madeira.csv";
+            break;
+        case 2:
+            csv = "../data/Project1LargeDataSet/Cities.csv";
+            break;
+        default:
+            cerr << "Invalid option" << endl;
+            return;
+    }
+    ifstream file(csv);
     if (!file.is_open()) {
-        cerr << "Failed to open Cities_Madeira.csv" << endl;
+        cerr << "Failed to open csv" << endl;
         return;
     }
     string line;
@@ -46,18 +72,28 @@ void DataManager::readCities() {
         getline(iss, demand, ',');
         getline(iss, population, '\n');
         normalizePopulation(population);
-        // cout << "City: " << name << " ID: " << id << " Code: " << code << " Demand: " << demand << " Population: " << population << endl;
-
         City city(name, id, code, stod(demand), stoi(population));
         if (cities.find(code) == cities.end())
             cities.insert({code, city});
     }
 }
 
-void DataManager::readReservoirs() {
-    ifstream file("../Project1DataSetSmall/Reservoirs_Madeira.csv");
+void DataManager::readReservoirs(int option) {
+    string csv;
+    switch (option) {
+        case 1:
+            csv = "../data/Project1DataSetSmall/Reservoirs_Madeira.csv";
+            break;
+        case 2:
+            csv = "../data/Project1LargeDataSet/Reservoir.csv";
+            break;
+        default:
+            cerr << "Invalid option" << endl;
+            return;
+    }
+    ifstream file(csv);
     if (!file.is_open()) {
-        cerr << "Failed to open Reservoirs_Madeira.csv" << endl;
+        cerr << "Failed to open csv" << endl;
         return;
     }
     string line;
@@ -79,10 +115,25 @@ void DataManager::readReservoirs() {
     }
 }
 
-void DataManager::readStations() {
-    ifstream file("../Project1DataSetSmall/Stations_Madeira.csv");
+/**
+ * Time complexity: O(n^2)
+ **/
+void DataManager::readStations(int option) {
+    string csv;
+    switch (option) {
+        case 1:
+            csv = "../data/Project1DataSetSmall/Stations_Madeira.csv";
+            break;
+        case 2:
+            csv = "../data/Project1LargeDataSet/Stations.csv";
+            break;
+        default:
+            cerr << "Invalid option" << endl;
+            return;
+    }
+    ifstream file(csv);
     if (!file.is_open()) {
-        cerr << "Failed to open Stations_Madeira.csv" << endl;
+        cerr << "Failed to open csv" << endl;
         return;
     }
     string line;
@@ -93,7 +144,6 @@ void DataManager::readStations() {
         getline(iss, id, ',');
         getline(iss, code, ',');
         if (!id.empty() || !code.empty()) {
-            // cout << "Station: " << id << " Code: " << code << endl;
             Station station(id, code);
             if (stations.find(code) == stations.end())
                 stations.insert({code, station});
@@ -101,20 +151,33 @@ void DataManager::readStations() {
     }
 }
 
-void DataManager::readPipes() {
+void DataManager::readPipes(int option) {
     for (auto &city: cities) {
-        // cout << city.second.getName() << endl;
         graph.addVertex(city.first);
     }
     for (auto &reservoir: reservoirs) {
-        // cout << reservoir.second.getName() << endl;
         graph.addVertex(reservoir.first);
     }
     for (auto &station: stations) {
-        // cout << station.second.getCode() << endl;
         graph.addVertex(station.first);
     }
-    ifstream file("../Project1DataSetSmall/Pipes_Madeira.csv");
+    string csv;
+    switch (option) {
+        case 1:
+            csv = "../data/Project1DataSetSmall/Pipes_Madeira.csv";
+            break;
+        case 2:
+            csv = "../data/Project1LargeDataSet/Pipes.csv";
+            break;
+        default:
+            cerr << "Invalid option" << endl;
+            return;
+    }
+    ifstream file(csv);
+    if (!file.is_open()) {
+        cerr << "Failed to open csv" << endl;
+        return;
+    }
     if (!file.is_open()) {
         cerr << "Failed to open Pipes_Madeira.csv" << endl;
         return;
@@ -128,7 +191,6 @@ void DataManager::readPipes() {
         getline(iss, codeB, ',');
         getline(iss, capacity, ',');
         getline(iss, direction, ',');
-        // cout << "CodeA: " << codeA << " CodeB: " << codeB << " flow: " << flow << " Direction: " << direction << endl;
         graph.addEdge(codeA, codeB, stod(capacity));
         if (direction == "0") {
             bool hasEdge = false;
@@ -146,6 +208,9 @@ void DataManager::readPipes() {
 }
 
 
+/**
+ * Time complexity: O(VE^2)
+ **/
 unordered_map<string, int> DataManager::citiesCapacity() {
     // Create a copy of the graph to avoid modifying the original graph
     Graph<string> graphCopy = getGraph().deepCopy();
@@ -305,9 +370,6 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
     unordered_map<string, int> newSites;
     for (auto &city : getCities()) {
         string sink = city.second.getCode(); // Set the current city as the sink
-        double demand = city.second.getDemand(); // Get the demand of the current city
-        // Call the edmondsKarp function to calculate the maximum flow for the current city
-
 
         // Retrieve the maximum flow value from the sink city's vertex
         Vertex<string> *sinkVertex = graphCopy.findVertex(sink);
@@ -400,12 +462,18 @@ void DataManager::pumpingStationOutCommission(Station &station, unordered_map<st
 }
 
 void DataManager::connectSuperSourceToReservoirs(const string &superSource, Graph<string> &graphCopy) const {
+    /**
+     * Add Vertex time complexity: O(1)
+     */
     graphCopy.addVertex(superSource);
     // Iterate over all reservoirs and connect them to the super source in the copy of the graph
     for (auto &reservoir : getReservoirs()) {
         string reservoirCode = reservoir.second.getCode();
         double maxDelivery = reservoir.second.getMaxDelivery();
         // Add an edge from the super source to the reservoir in the copy of the graph
+        /**
+         * Add Edge time complexity: O(V)
+         */
         graphCopy.addEdge(superSource, reservoirCode, maxDelivery);
     }
 }
@@ -438,7 +506,7 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
     // Iterate over each vertex in the graph
     for (auto &vertex : graphCopy.getVertexSet()) {
 
-            if(vertex->getInfo() == "SuperSource") continue;
+        if(vertex->getInfo() == "SuperSource") continue;
         // Iterate over each adjacent edge of the current vertex
         for (auto &edge : vertex->getAdj()) {
 
@@ -471,7 +539,7 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
             unordered_map<string, int> citiesWithoutWater;
             for (auto &site : newSites) {
                 if (cities.find(site.first) != cities.end()) {
-                          if (site.second < cities.at(site.first).getDemand()) {
+                    if (site.second < cities.at(site.first).getDemand()) {
                         citiesWithoutWater[site.first] = (int) cities.at(site.first).getDemand() - site.second;
                     }
                 }
