@@ -225,7 +225,7 @@ void Menu::basicServiceMetrics() {
             maxWaterReach();
         case 2:
             cout << endl;
-            dataManager.citiesCapacity();
+            dataManager.citiesCapacity(true);
             mainMenu();
             break;
         case 3:
@@ -447,7 +447,7 @@ void Menu::reliabilityAndSensitivity() {
                 return;
             }
             cout << "\nWith the reservoir:" << endl;
-            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            unordered_map<string, int> sites = dataManager.citiesCapacity(false);
             cout << endl << "\nWithout the reservoir:" << endl;
             dataManager.reservoirOutCommission(dataManager.getReservoirs().at(input), sites);
             break;
@@ -464,14 +464,14 @@ void Menu::reliabilityAndSensitivity() {
                 return;
             }
             cout << "\nWith the Pumping Station:" << endl;
-            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            unordered_map<string, int> sites = dataManager.citiesCapacity(false);
             cout << endl << "\nWithout the Pumping Station:" << endl;
             dataManager.pumpingStationOutCommission(dataManager.getStations().at(input), sites);
             break;
         }
         case 3: {
             cout << "\nWith the Pipeline:" << endl;
-            unordered_map<string, int> sites = dataManager.citiesCapacity();
+            unordered_map<string, int> sites = dataManager.citiesCapacity(false);
             dataManager.pipelineFailures(sites);
             break;
         }

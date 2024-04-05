@@ -204,7 +204,7 @@ void DataManager::readPipes(int option) {
 /**
  * Time complexity: O(VE^2)
  **/
-unordered_map<string, int> DataManager::citiesCapacity() {
+unordered_map<string, int> DataManager::citiesCapacity(bool printCitiesWithoutWater) {
     // Create a copy of the graph to avoid modifying the original graph
     Graph<string> graphCopy = getGraph().deepCopy();
 
@@ -238,9 +238,13 @@ unordered_map<string, int> DataManager::citiesCapacity() {
         // Display the maximum flow for the current city
         cout << city.first << " - " << city.second.getName() << ", Demand: " << cities.at(city.first).getDemand() <<", Flow: " << maxFlow << endl;
     }
-    cout << endl << "Cities without enough flow:" << endl;
-    for (auto &city: citiesWithoutWater) {
-        cout << city.first << " - " << cities.at(city.first).getName() << "-> Demand: " << cities.at(city.first).getDemand() << ", Flow: " << citiesCapacity.at(city.first) << ", Deficit: " << city.second << endl;
+    if (printCitiesWithoutWater){
+        cout << endl << "Cities without enough flow:" << endl;
+        for (auto &city: citiesWithoutWater) {
+            cout << city.first << " - " << cities.at(city.first).getName() << "-> Demand: "
+                 << cities.at(city.first).getDemand() << ", Flow: " << citiesCapacity.at(city.first) << ", Deficit: "
+                 << city.second << endl;
+        }
     }
     return citiesCapacity;
 }
@@ -501,6 +505,7 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
     // Connect the super sink to all cities in the copy of the graph
     connectSuperSinktoCity(superSink, graphCopy);
 
+    unordered_map<string, string> pipelineCity;
     // Iterate over each vertex in the graph
     for (auto &vertex : graphCopy.getVertexSet()) {
 
@@ -512,8 +517,8 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
             // Simulate the failure of the current pipeline by setting its flow capacity to zero
             double originalWeight = edge->getWeight();
             edge->setWeight(0);
-
-            cout << "\nWithout pipeline: " << edge->getOrig()->getInfo() << " -> " << edge->getDest()->getInfo()<< endl;
+            string pipelineCode = edge->getOrig()->getInfo() + " -> " + edge->getDest()->getInfo();
+            cout << "\nWithout pipeline: " << pipelineCode << endl;
 
             // Run the Edmonds-Karp algorithm to find maximum flow
             edmondsKarp(&graphCopy, superSource, superSink);
@@ -555,11 +560,18 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
                     cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
                     changed = true;
                 }
+                if (newSiteCapacity < cities.at(oldSite.first).getDemand()) {
+                    pipelineCity[pipelineCode] = oldSite.first;
+                }
             }
             if (!changed) cout << "There was no changes on the cities' flow" << endl;
 
             // Restore the flow capacity of the pipeline for the next iteration
             edge->setWeight(originalWeight);
         }
+    }
+    cout << "\nCities that without a pipeline can no longer deliver the desired amount of water:" << endl;
+    for (const auto& pair : pipelineCity) {
+        cout << "Pipeline: " << pair.first << " | City: " << pair.second << endl;
     }
 }

@@ -24,7 +24,7 @@ class DataManager {
         unordered_map<string, Station> getStations() const { return stations; }
         Graph<string> getGraph() { return graph; }
 
-        unordered_map<string, int> citiesCapacity();
+        unordered_map<string, int> citiesCapacity(bool b);
 
         static void edmondsKarp(Graph<string> *g, const string& source, const string& target);
 
