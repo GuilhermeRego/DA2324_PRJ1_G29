@@ -1,6 +1,3 @@
-// Original code by Gonçalo Leão
-// Updated by DA 2023/2024 Team
-
 #ifndef DA_TP_CLASSES_GRAPH
 #define DA_TP_CLASSES_GRAPH
 
@@ -17,20 +14,13 @@ class Edge;
 
 /************************* Vertex  **************************/
 
-enum VertexType {
-    CITY,
-    RESERVOIR,
-    STATION
-};
-
 template <class T>
 class Vertex {
 public:
-    Vertex(T info);
+    explicit Vertex(T info);
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 
     T getInfo() const;
-    VertexType getType() const;
     std::vector<Edge<T> *> getAdj() const;
     bool isVisited() const;
     bool isProcessing() const;
@@ -52,13 +42,11 @@ public:
 protected:
     std::vector<Edge<T> *> adj;  // outgoing edges
     T info;
-    VertexType type;
-
 
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
-    unsigned int indegree; // used by topsort
+    unsigned int indegree{}; // used by topsort
     double dist = 0;
     Edge<T> *path = nullptr;
 
@@ -185,13 +173,6 @@ void deleteMatrix(double **m, int n);
 template<class T>
 Vertex<T>::Vertex(T info) {
     this->info = info;
-    this->type = type;
-
-}
-
-template<class T>
-VertexType Vertex<T>::getType() const {
-    return this->type;
 }
 
 /*

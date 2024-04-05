@@ -1,7 +1,3 @@
-//
-// Created by guire on 07/03/2024.
-//
-
 #ifndef DA2324_PRJ1_G29_DATAMANAGER_H
 #define DA2324_PRJ1_G29_DATAMANAGER_H
 
@@ -16,10 +12,10 @@ using namespace std;
 class DataManager {
     public:
         DataManager();
-        void readCities(int i);
-        void readPipes(int i);
-        void readReservoirs(int i);
-        void readStations(int i);
+        void readCities(int option);
+        void readPipes(int option);
+        void readReservoirs(int option);
+        void readStations(int option);
 
         static void normalizePopulation(string &population);
 
@@ -42,10 +38,6 @@ class DataManager {
         unordered_map<string, Reservoir> reservoirs;
         unordered_map<string, Station> stations;
         Graph<string> graph;
-
-    void evaluateReservoirImpact();
-
-
 };
 
 

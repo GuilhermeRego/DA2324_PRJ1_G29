@@ -1,8 +1,5 @@
-//
-// Created by guire on 07/03/2024.
-//
-
 #include <string>
+#include <utility>
 #include "Graph.h"
 
 #ifndef DA2324_PRJ1_G29_RESERVOIR_H
@@ -18,7 +15,7 @@ private:
 
     public:
         Reservoir(std::string name, std::string municipality, std::string id, std::string code, double maxDelivery) :
-                name(name), municipality(municipality), id(id), code(code), maxDelivery(maxDelivery) {}
+                name(std::move(name)), municipality(std::move(municipality)), id(std::move(id)), code(std::move(code)), maxDelivery(maxDelivery) {}
         std::string getName() { return name; }
         std::string getMunicipality() { return municipality; }
         std::string getId() { return id; }

@@ -1,7 +1,3 @@
-//
-// Created by guire on 24/03/2024.
-//
-
 #include "Menu.h"
 #include "DataManager.h"
 #include <string>
@@ -217,7 +213,7 @@ void Menu::basicServiceMetrics() {
     cout << "\nBasic Service Metrics: \n"
             "1 - Determine maximum water reach for each city;\n"
             "2 - Can an existing network configuration meet the water needs of its customers?;\n"
-            "9 - Return to main menu;\n";
+            "3 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -232,7 +228,7 @@ void Menu::basicServiceMetrics() {
             dataManager.citiesCapacity();
             mainMenu();
             break;
-        case 9:
+        case 3:
             mainMenu();
             break;
         default:
@@ -369,14 +365,18 @@ void Menu::maxWaterReach() {
                 maxWaterReach();
             }
         }
+        cout << "Press any key to continue..." << endl;
+        cin.ignore();
+        getchar();
     }
+
 }
 
 void Menu::configurations() {
     cout << "\nConfigurations:\n"
             "1 - Print max_flow_reservoir_to_city.txt\n"
             "2 - Clear max_flow_reservoir_to_city.txt\n"
-            "9 - Return to main menu;\n";
+            "3 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -412,7 +412,7 @@ void Menu::configurations() {
             mainMenu();
             break;
         }
-        case 9:
+        case 3:
             mainMenu();
             break;
         default:
@@ -427,7 +427,7 @@ void Menu::reliabilityAndSensitivity() {
             "1 - Evaluate what happens in terms of the delivery capacity of the network if one specific water reservoir is out of commission;\n"
             "2 - Evaluate the effect of removing a single pumping station on the network's delivery capacity to all citites;\n"
             "3 - Check the effect of pipeline failures;\n"
-            "9 - Return to main menu;\n";
+            "4 - Return to main menu;\n";
     cin >> input;
     if (!isDigit(input)) {
         cout << "Invalid input, try again\n";
@@ -475,7 +475,7 @@ void Menu::reliabilityAndSensitivity() {
             dataManager.pipelineFailures(sites);
             break;
         }
-        case 9:
+        case 4:
             mainMenu();
             break;
     }

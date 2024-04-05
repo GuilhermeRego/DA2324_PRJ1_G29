@@ -1,8 +1,3 @@
-
-//
-// Created by guire on 07/03/2024.
-//
-
 #include "DataManager.h"
 #include "City.h"
 #include "Reservoir.h"
@@ -18,18 +13,19 @@
 using namespace std;
 
 DataManager::DataManager() {
-    int option;
+    string option;
     do {
         cout << "Madeira or Portugal?\n"
                 "1 - Madeira\n"
                 "2 - Portugal\n";
 
         cin >> option;
-    } while (option != 1 && option != 2);
-    readCities(option);
-    readReservoirs(option);
-    readStations(option);
-    readPipes(option);
+    } while (option != "1" && option != "2");
+    int optionInt = stoi(option);
+    readCities(optionInt);
+    readReservoirs(optionInt);
+    readStations(optionInt);
+    readPipes(optionInt);
 }
 
 /**
@@ -106,9 +102,6 @@ void DataManager::readReservoirs(int option) {
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, maxDelivery, ',');
-
-        // cout << "Reservoir: " << name << " Municipality: " << municipality << " ID: " << id << " Code: " << code << " Max Delivery: " << maxDelivery << endl;
-
         Reservoir reservoir(name, municipality, id, code, stod(maxDelivery));
         if (reservoirs.find(code) == reservoirs.end())
             reservoirs.insert({code, reservoir});
@@ -232,9 +225,6 @@ unordered_map<string, int> DataManager::citiesCapacity() {
     for (auto &city : getCities()) {
         string sink = city.second.getCode(); // Set the current city as the sink
         double demand = city.second.getDemand(); // Get the demand of the current city
-        // Call the edmondsKarp function to calculate the maximum flow for the current city
-
-
         // Retrieve the maximum flow value from the sink city's vertex
         Vertex<string>* sinkVertex = graphCopy.findVertex(sink);
         double maxFlow = 0;
@@ -250,7 +240,7 @@ unordered_map<string, int> DataManager::citiesCapacity() {
     }
     cout << endl << "Cities without enough flow:" << endl;
     for (auto &city: citiesWithoutWater) {
-        cout << city.first << " - " << cities.at(city.first).getName() << " is missing " << city.second << " flow" << endl;
+        cout << city.first << " - " << cities.at(city.first).getName() << "-> Demand: " << cities.at(city.first).getDemand() << ", Flow: " << citiesCapacity.at(city.first) << ", Deficit: " << city.second << endl;
     }
     return citiesCapacity;
 }
@@ -332,6 +322,9 @@ void augmentFlowAlongPath(Vertex<T> *s, Vertex<T> *t, double f) {
 }
 
 // Main function implementing the Edmonds-Karp algorithm
+/**
+ * Time complexity: O(VE^2) -> Every function that calls edmodsKarp has a time complexity of O(VE^2)
+ **/
 void DataManager::edmondsKarp(Graph<string> *g, const string& source, const string& target) {
     // Find source and target vertices in the graph
     Vertex<string> *s = g->findVertex(source);
@@ -394,11 +387,11 @@ void DataManager::reservoirOutCommission(Reservoir &reservoir, unordered_map<str
     for (const auto& oldSite : oldSites) {
         int newSiteCapacity = newSites.at(oldSite.first);
         if (oldSite.second > newSiteCapacity) {
-            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow." << endl;
+            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
             changed = true;
         }
         else if (oldSite.second < newSiteCapacity) {
-            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow." << endl;
+            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
             changed = true;
         }
     }
@@ -423,10 +416,6 @@ void DataManager::pumpingStationOutCommission(Station &station, unordered_map<st
     unordered_map<string, int> newSites;
     for (auto &city : getCities()) {
         string sink = city.second.getCode(); // Set the current city as the sink
-        double demand = city.second.getDemand(); // Get the demand of the current city
-        // Call the edmondsKarp function to calculate the maximum flow for the current city
-
-
         // Retrieve the maximum flow value from the sink city's vertex
         Vertex<string> *sinkVertex = graphCopy.findVertex(sink);
         double maxFlow = 0;
@@ -450,17 +439,20 @@ void DataManager::pumpingStationOutCommission(Station &station, unordered_map<st
     for (const auto& oldSite : oldSites) {
         int newSiteCapacity = newSites.at(oldSite.first);
         if (oldSite.second > newSiteCapacity) {
-            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow." << endl;
+            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
             changed = true;
         }
         else if (oldSite.second < newSiteCapacity) {
-            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow." << endl;
+            cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
             changed = true;
         }
     }
     if (!changed) cout << "There was no changes on the cities' flow" << endl;
 }
 
+/**
+ * Time complexity: O(V)
+ **/
 void DataManager::connectSuperSourceToReservoirs(const string &superSource, Graph<string> &graphCopy) const {
     /**
      * Add Vertex time complexity: O(1)
@@ -478,6 +470,9 @@ void DataManager::connectSuperSourceToReservoirs(const string &superSource, Grap
     }
 }
 
+/**
+ * Time complexity: O(V)
+ **/
 void DataManager::connectSuperSinktoCity(const string &supersink, Graph<string> &graphcopy) const {
     graphcopy.addVertex(supersink);
     // Iterate over all reservoirs and connect them to the super source in the copy of the graph
@@ -489,6 +484,9 @@ void DataManager::connectSuperSinktoCity(const string &supersink, Graph<string> 
     }
 }
 
+/**
+ * Time complexity: O(V^4 * E^3)
+ **/
 void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
     // Create a copy of the graph to avoid modifying the original graph
     Graph<string> graphCopy = graph.deepCopy();
@@ -524,7 +522,6 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
             unordered_map<string, int> newSites;
             for (auto &city : getCities()) {
                 string sink = city.second.getCode(); // Set the current city as the sink
-                double demand = city.second.getDemand(); // Get the demand of the current city
 
                 // Retrieve the maximum flow value from the sink city's vertex
                 Vertex<string> *sinkVertex = graphCopy.findVertex(sink);
@@ -551,11 +548,11 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
             for (const auto& oldSite : oldSites) {
                 int newSiteCapacity = newSites.at(oldSite.first);
                 if (oldSite.second > newSiteCapacity) {
-                    cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow." << endl;
+                    cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
                     changed = true;
                 }
                 else if (oldSite.second < newSiteCapacity) {
-                    cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow." << endl;
+                    cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
                     changed = true;
                 }
             }

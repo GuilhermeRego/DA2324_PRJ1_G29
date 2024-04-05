@@ -128,30 +128,6 @@ DA2324_PRJ1_G29/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/build
 .PHONY : DA2324_PRJ1_G29/fast
 
-City.obj: City.cpp.obj
-.PHONY : City.obj
-
-# target to build an object file
-City.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj
-.PHONY : City.cpp.obj
-
-City.i: City.cpp.i
-.PHONY : City.i
-
-# target to preprocess a source file
-City.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.i
-.PHONY : City.cpp.i
-
-City.s: City.cpp.s
-.PHONY : City.s
-
-# target to generate assembly for a file
-City.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.s
-.PHONY : City.cpp.s
-
 DataManager.obj: DataManager.cpp.obj
 .PHONY : DataManager.obj
 
@@ -200,54 +176,6 @@ Menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.s
 .PHONY : Menu.cpp.s
 
-Reservoir.obj: Reservoir.cpp.obj
-.PHONY : Reservoir.obj
-
-# target to build an object file
-Reservoir.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj
-.PHONY : Reservoir.cpp.obj
-
-Reservoir.i: Reservoir.cpp.i
-.PHONY : Reservoir.i
-
-# target to preprocess a source file
-Reservoir.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.i
-.PHONY : Reservoir.cpp.i
-
-Reservoir.s: Reservoir.cpp.s
-.PHONY : Reservoir.s
-
-# target to generate assembly for a file
-Reservoir.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.s
-.PHONY : Reservoir.cpp.s
-
-Station.obj: Station.cpp.obj
-.PHONY : Station.obj
-
-# target to build an object file
-Station.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj
-.PHONY : Station.cpp.obj
-
-Station.i: Station.cpp.i
-.PHONY : Station.i
-
-# target to preprocess a source file
-Station.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.i
-.PHONY : Station.cpp.i
-
-Station.s: Station.cpp.s
-.PHONY : Station.s
-
-# target to generate assembly for a file
-Station.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\DA2324_PRJ1_G29.dir\build.make CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.s
-.PHONY : Station.cpp.s
-
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -281,21 +209,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... DA2324_PRJ1_G29
-	@echo ... City.obj
-	@echo ... City.i
-	@echo ... City.s
 	@echo ... DataManager.obj
 	@echo ... DataManager.i
 	@echo ... DataManager.s
 	@echo ... Menu.obj
 	@echo ... Menu.i
 	@echo ... Menu.s
-	@echo ... Reservoir.obj
-	@echo ... Reservoir.i
-	@echo ... Reservoir.s
-	@echo ... Station.obj
-	@echo ... Station.i
-	@echo ... Station.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

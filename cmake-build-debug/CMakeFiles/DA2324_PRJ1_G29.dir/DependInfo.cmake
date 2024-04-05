@@ -8,11 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/City.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj.d"
   "C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/DataManager.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj.d"
   "C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Menu.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj.d"
-  "C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Reservoir.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj.d"
-  "C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Station.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj.d"
   "C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/main.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj.d"
   )
 

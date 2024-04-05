@@ -68,56 +68,11 @@ include CMakeFiles/DA2324_PRJ1_G29.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/DA2324_PRJ1_G29.dir/flags.make
 
-CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/flags.make
-CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/includes_CXX.rsp
-CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj: C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Reservoir.cpp
-CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj -MF CMakeFiles\DA2324_PRJ1_G29.dir\Reservoir.cpp.obj.d -o CMakeFiles\DA2324_PRJ1_G29.dir\Reservoir.cpp.obj -c C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Reservoir.cpp
-
-CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Reservoir.cpp > CMakeFiles\DA2324_PRJ1_G29.dir\Reservoir.cpp.i
-
-CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Reservoir.cpp -o CMakeFiles\DA2324_PRJ1_G29.dir\Reservoir.cpp.s
-
-CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/flags.make
-CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/includes_CXX.rsp
-CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj: C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Station.cpp
-CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj -MF CMakeFiles\DA2324_PRJ1_G29.dir\Station.cpp.obj.d -o CMakeFiles\DA2324_PRJ1_G29.dir\Station.cpp.obj -c C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Station.cpp
-
-CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Station.cpp > CMakeFiles\DA2324_PRJ1_G29.dir\Station.cpp.i
-
-CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Station.cpp -o CMakeFiles\DA2324_PRJ1_G29.dir\Station.cpp.s
-
-CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/flags.make
-CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/includes_CXX.rsp
-CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj: C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/City.cpp
-CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj -MF CMakeFiles\DA2324_PRJ1_G29.dir\City.cpp.obj.d -o CMakeFiles\DA2324_PRJ1_G29.dir\City.cpp.obj -c C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\City.cpp
-
-CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\City.cpp > CMakeFiles\DA2324_PRJ1_G29.dir\City.cpp.i
-
-CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\City.cpp -o CMakeFiles\DA2324_PRJ1_G29.dir\City.cpp.s
-
 CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/flags.make
 CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/includes_CXX.rsp
 CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/main.cpp
 CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj -MF CMakeFiles\DA2324_PRJ1_G29.dir\main.cpp.obj.d -o CMakeFiles\DA2324_PRJ1_G29.dir\main.cpp.obj -c C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\main.cpp
 
 CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.i: cmake_force
@@ -132,7 +87,7 @@ CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.d
 CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/includes_CXX.rsp
 CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj: C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/DataManager.cpp
 CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj -MF CMakeFiles\DA2324_PRJ1_G29.dir\DataManager.cpp.obj.d -o CMakeFiles\DA2324_PRJ1_G29.dir\DataManager.cpp.obj -c C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\DataManager.cpp
 
 CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.i: cmake_force
@@ -147,7 +102,7 @@ CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/flag
 CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/includes_CXX.rsp
 CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj: C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Menu.cpp
 CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj: CMakeFiles/DA2324_PRJ1_G29.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj -MF CMakeFiles\DA2324_PRJ1_G29.dir\Menu.cpp.obj.d -o CMakeFiles\DA2324_PRJ1_G29.dir\Menu.cpp.obj -c C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\Menu.cpp
 
 CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.i: cmake_force
@@ -160,9 +115,6 @@ CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.s: cmake_force
 
 # Object files for target DA2324_PRJ1_G29
 DA2324_PRJ1_G29_OBJECTS = \
-"CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj" \
-"CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj" \
-"CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj" \
 "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj" \
 "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj" \
 "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj"
@@ -170,9 +122,6 @@ DA2324_PRJ1_G29_OBJECTS = \
 # External object files for target DA2324_PRJ1_G29
 DA2324_PRJ1_G29_EXTERNAL_OBJECTS =
 
-DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/Reservoir.cpp.obj
-DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/Station.cpp.obj
-DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/City.cpp.obj
 DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj
 DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj
 DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj
@@ -180,7 +129,7 @@ DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/build.make
 DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/linkLibs.rsp
 DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/objects1.rsp
 DA2324_PRJ1_G29.exe: CMakeFiles/DA2324_PRJ1_G29.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable DA2324_PRJ1_G29.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\guire\CLionProjects\DA\DA2324_PRJ1_G29\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable DA2324_PRJ1_G29.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\DA2324_PRJ1_G29.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

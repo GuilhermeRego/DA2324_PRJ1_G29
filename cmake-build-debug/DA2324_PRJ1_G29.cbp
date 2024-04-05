@@ -84,9 +84,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/City.cpp">
-			<Option target="DA2324_PRJ1_G29"/>
-		</Unit>
 		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/City.h">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
@@ -103,15 +100,6 @@
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
 		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Menu.h">
-			<Option target="DA2324_PRJ1_G29"/>
-		</Unit>
-		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Reservoir.cpp">
-			<Option target="DA2324_PRJ1_G29"/>
-		</Unit>
-		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Reservoir.h">
-			<Option target="DA2324_PRJ1_G29"/>
-		</Unit>
-		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Station.cpp">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
 		<Unit filename="C:/Users/guire/CLionProjects/DA/DA2324_PRJ1_G29/Station.h">
