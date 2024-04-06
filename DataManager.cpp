@@ -171,10 +171,7 @@ void DataManager::readPipes(int option) {
         cerr << "Failed to open csv" << endl;
         return;
     }
-    if (!file.is_open()) {
-        cerr << "Failed to open Pipes_Madeira.csv" << endl;
-        return;
-    }
+
     string line;
     getline(file, line); // Skip first line (header)
     while (getline(file, line)) {

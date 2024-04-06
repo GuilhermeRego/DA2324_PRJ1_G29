@@ -226,7 +226,6 @@ void Menu::basicServiceMetrics() {
         case 2:
             cout << endl;
             dataManager.citiesCapacity(true);
-            mainMenu();
             break;
         case 3:
             mainMenu();
@@ -236,6 +235,10 @@ void Menu::basicServiceMetrics() {
             basicServiceMetrics();
             break;
     }
+    cout << "Press any key to continue..." << endl;
+    cin.ignore();
+    getchar();
+    mainMenu();
 }
 
 void Menu::maxWaterReach() {
@@ -268,7 +271,7 @@ void Menu::maxWaterReach() {
         DataManager::edmondsKarp(&graphCopy, superSource, superSink);
 
         // Display options for the user to choose
-        cout << "Choose an option:" << endl;
+        cout << "\nChoose an option:" << endl;
         cout << "1 - Calculate maximum flow from reservoirs to each city" << endl;
         cout << "2 - Calculate overall maximum flow from reservoirs to all cities" << endl;
         cout << "3 - Exit" << endl;
@@ -281,7 +284,7 @@ void Menu::maxWaterReach() {
                  * To calculate the maximum flow from reservoirs to each city the time complexity is O(V + E)
                  **/
                 // Display city options for the user to choose as the sink
-                cout << "Select the city as the sink:" << endl;
+                cout << "\nSelect the city as the sink:" << endl;
                 int i = 1;
                 unordered_map<int, string> cityChoices; // Map numerical choices to city names
                 unordered_map<int, double> cityDemands; // Map numerical choices to city demands
@@ -295,7 +298,7 @@ void Menu::maxWaterReach() {
                 cin >> cityChoice;
                 // Validate the user's input
                 if (cityChoice < 1 || cityChoice > cityChoices.size()) {
-                    cout << "Invalid city choice. Please try again." << endl;
+                    cout << "\nInvalid city choice. Please try again." << endl;
                     continue; // Restart the loop to prompt the user again
                 }
                 // Set the selected city as the sink
@@ -311,7 +314,7 @@ void Menu::maxWaterReach() {
                 }
 
                 // Display the maximum flow in the console
-                cout << "Maximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
+                cout << "\nMaximum flow from reservoirs to city " << dataManager.getCities().at(sink).getName() << ": " << maxFlow << endl;
 
                 // Write the maximum flow to a file
                 ofstream outputFile("max_flow_reservoir_to_city.txt", ios::app);
@@ -322,7 +325,6 @@ void Menu::maxWaterReach() {
                 } else {
                     cout << "Unable to open file for writing" << endl;
                 }
-                mainMenu();
                 break;
             }
 
@@ -331,7 +333,7 @@ void Menu::maxWaterReach() {
                  * To calculate the overall maximum flow from reservoirs to all cities the time complexity is O(VE)
                  **/
                 // Display header for the results
-                cout << "Maximum flow for each city:" << endl;
+                cout << "\nMaximum flow for each city:" << endl;
 
                 double maxflowoverall = 0.0;
 
@@ -353,7 +355,6 @@ void Menu::maxWaterReach() {
                 }
                 cout << "Max Flow Overall: " << maxflowoverall   << endl;
                 cout << "\n";
-                mainMenu();
                 break;
             }
             case 3: {
@@ -361,13 +362,14 @@ void Menu::maxWaterReach() {
                 break;
             }
             default: {
-                cout << "Invalid option. Please try again." << endl;
+                cout << "\nInvalid option. Please try again." << endl;
                 maxWaterReach();
             }
         }
         cout << "Press any key to continue..." << endl;
         cin.ignore();
         getchar();
+        mainMenu();
     }
 
 }
@@ -396,7 +398,6 @@ void Menu::configurations() {
             else {
                 cout << "Unable to open file for reading" << endl;
             }
-            mainMenu();
             break;
         }
         case 2: {
@@ -409,7 +410,6 @@ void Menu::configurations() {
             else {
                 cout << "Unable to open file for writing" << endl;
             }
-            mainMenu();
             break;
         }
         case 3:
@@ -420,6 +420,10 @@ void Menu::configurations() {
             configurations();
             break;
     }
+    cout << "Press any key to continue..." << endl;
+    cin.ignore();
+    getchar();
+    mainMenu();
 }
 
 void Menu::reliabilityAndSensitivity() {
