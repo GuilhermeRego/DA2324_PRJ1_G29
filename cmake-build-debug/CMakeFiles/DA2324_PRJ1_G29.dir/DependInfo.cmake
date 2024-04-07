@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/DataManager.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.o" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.o.d"
-  "/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/Menu.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.o" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.o.d"
-  "/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/main.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.o" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.o.d"
+  "C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/DataManager.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/DataManager.cpp.obj.d"
+  "C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/Menu.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/Menu.cpp.obj.d"
+  "C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/main.cpp" "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj" "gcc" "CMakeFiles/DA2324_PRJ1_G29.dir/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

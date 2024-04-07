@@ -502,7 +502,6 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
     // Connect the super sink to all cities in the copy of the graph
     connectSuperSinktoCity(superSink, graphCopy);
 
-    unordered_map<string, string> pipelineCity;
     // Iterate over each vertex in the graph
     for (auto &vertex : graphCopy.getVertexSet()) {
 
@@ -551,14 +550,14 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
                 int newSiteCapacity = newSites.at(oldSite.first);
                 if (oldSite.second > newSiteCapacity) {
                     cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " has lost " << oldSite.second - newSiteCapacity << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
+                    if (oldSite.second >= cities.at(oldSite.first).getDemand() && newSiteCapacity < cities.at(oldSite.first).getDemand()) {
+                        cout << "Without the pipeline, " << oldSite.first << " - " << cities.at(oldSite.first).getName() << " can no longer deliver the desired amount of water (demand = " << cities.at(oldSite.first).getDemand() << ")" << endl;
+                    }
                     changed = true;
                 }
                 else if (oldSite.second < newSiteCapacity) {
                     cout << oldSite.first << " - " << cities.at(oldSite.first).getName() << " got " << newSiteCapacity - oldSite.second << " flow -> Old Flow: " << oldSite.second << " | New Flow: " << newSiteCapacity << endl;
                     changed = true;
-                }
-                if (newSiteCapacity < cities.at(oldSite.first).getDemand()) {
-                    pipelineCity[pipelineCode] = oldSite.first;
                 }
             }
             if (!changed) cout << "There was no changes on the cities' flow" << endl;
@@ -566,9 +565,5 @@ void DataManager::pipelineFailures(unordered_map<string, int> &oldSites) {
             // Restore the flow capacity of the pipeline for the next iteration
             edge->setWeight(originalWeight);
         }
-    }
-    cout << "\nCities that without a pipeline can no longer deliver the desired amount of water:" << endl;
-    for (const auto& pair : pipelineCity) {
-        cout << "Pipeline: " << pair.first << " | City: " << pair.second << endl;
     }
 }

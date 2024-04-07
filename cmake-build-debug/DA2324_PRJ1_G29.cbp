@@ -8,103 +8,107 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug"/>
+				<Option working_dir="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="DA2324_PRJ1_G29">
-				<Option output="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/DA2324_PRJ1_G29" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug"/>
+				<Option output="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/DA2324_PRJ1_G29.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/."/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
-					<Add directory="/System/Library/Frameworks"/>
-					<Add directory="/Library/Frameworks"/>
+					<Add directory="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/."/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 DA2324_PRJ1_G29"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 DA2324_PRJ1_G29"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="DA2324_PRJ1_G29/fast">
-				<Option output="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/DA2324_PRJ1_G29" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug"/>
+				<Option output="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/DA2324_PRJ1_G29.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/."/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include"/>
-					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
-					<Add directory="/System/Library/Frameworks"/>
-					<Add directory="/Library/Frameworks"/>
+					<Add directory="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/."/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 DA2324_PRJ1_G29/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 DA2324_PRJ1_G29/fast"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug"/>
+				<Option working_dir="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug"/>
+				<Option working_dir="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/City.h">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/City.h">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/DataManager.cpp">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/DataManager.cpp">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/DataManager.h">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/DataManager.h">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/Graph.h">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/Graph.h">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/Menu.cpp">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/Menu.cpp">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/Menu.h">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/Menu.h">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/Station.h">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/Station.h">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/main.cpp">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/main.cpp">
 			<Option target="DA2324_PRJ1_G29"/>
 		</Unit>
-		<Unit filename="/Users/gabrielbraga/Desktop/UNI/DA-PROJ/DA2324_PRJ1_G29/CMakeLists.txt">
+		<Unit filename="C:/Users/guire/Desktop/DA2024_PRJ1_G29/code/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
